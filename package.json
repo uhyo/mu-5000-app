@@ -11,15 +11,19 @@
   },
   "dependencies": {
     "@remix-run/react": "^1.1.1",
+    "@remix-run/serve": "^1.1.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "remix": "^1.1.1",
-    "@remix-run/serve": "^1.1.1"
+    "seedrandom": "^3.0.5",
+    "twemoji": "^13.1.0"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.1.1",
     "@types/react": "^17.0.24",
     "@types/react-dom": "^17.0.9",
+    "@types/seedrandom": "^3.0.1",
+    "@types/twemoji": "^12.1.2",
     "typescript": "^4.1.2"
   },
   "engines": {

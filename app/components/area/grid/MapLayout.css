@@ -1,0 +1,8 @@
+.map-layout-container {
+  display: grid;
+  grid-template: auto / auto;
+}
+
+.map-layout-container > * {
+  grid-area: 1 / 1;
+}

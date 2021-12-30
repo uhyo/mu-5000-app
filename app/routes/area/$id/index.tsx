@@ -1,6 +1,15 @@
-import { LoaderFunction, useLoaderData, useParams } from "remix";
+import { LinksFunction, LoaderFunction, useLoaderData, useParams } from "remix";
+import { Area, createArea } from "~/logic/area";
+import { Map, links as mapLinks } from "~/components/area/Map";
+import {
+  MapLayout,
+  links as mapLayoutLinks,
+} from "~/components/area/grid/MapLayout";
+import { useClientOnly } from "~/utils/useClientOnly";
 
-type LoaderType = {};
+type LoaderType = {
+  area: Area;
+};
 
 export const loader: LoaderFunction = ({ params }): LoaderType => {
   if (!params.id) {
@@ -8,10 +17,20 @@ export const loader: LoaderFunction = ({ params }): LoaderType => {
       status: 404,
     });
   }
-  return {};
+  const area = createArea(params.id);
+  if (!area) {
+    throw new Response("Not Found", {
+      status: 404,
+    });
+  }
+  return { area };
 };
 
+export const links: LinksFunction = () => [...mapLinks(), ...mapLayoutLinks()];
+
 export default function AreaRoute() {
-  const data = useLoaderData<LoaderType>();
-  return null;
+  const { area } = useLoaderData<LoaderType>();
+  const mapArea = useClientOnly(<Map area={area} />);
+
+  return <MapLayout>{mapArea}</MapLayout>;
 }

@@ -1,0 +1,12 @@
+.map-grid-container {
+  display: grid;
+  font-size: var(--cell-size);
+  grid-template-columns: repeat(var(--map-size), var(--cell-size));
+  grid-template-rows: repeat(var(--map-size), var(--cell-size));
+  gap: 2px;
+}
+
+.map-grid-container .emoji {
+  width: var(--cell-size);
+  height: var(--cell-size);
+}
