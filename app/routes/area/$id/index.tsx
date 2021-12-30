@@ -6,6 +6,7 @@ import {
   links as mapLayoutLinks,
 } from "~/components/area/grid/MapLayout";
 import { useClientOnly } from "~/utils/useClientOnly";
+import { Twemoji } from "~/components/utils/Twemoji";
 
 type LoaderType = {
   area: Area;
@@ -30,7 +31,14 @@ export const links: LinksFunction = () => [...mapLinks(), ...mapLayoutLinks()];
 
 export default function AreaRoute() {
   const { area } = useLoaderData<LoaderType>();
-  const mapArea = useClientOnly(<Map area={area} />);
+  console.log(area);
+  const mapArea = useClientOnly(
+    <Twemoji wrapper="div">
+      <MapLayout>
+        <Map area={area} />
+      </MapLayout>
+    </Twemoji>
+  );
 
-  return <MapLayout>{mapArea}</MapLayout>;
+  return mapArea;
 }

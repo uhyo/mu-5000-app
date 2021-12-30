@@ -1,6 +1,7 @@
 import { LinksFunction } from "remix";
 import { Area } from "~/logic/area";
 import { FloorType } from "~/logic/area/floor";
+import { landChars } from "~/logic/area/landDef";
 import { mapSize } from "~/logic/area/params";
 import { range } from "~/utils/range";
 import { Twemoji } from "../utils/Twemoji";
@@ -17,15 +18,48 @@ export const links: LinksFunction = () => [...mapGridContainerLinks()];
 
 export const Map: React.VFC<Props> = ({ area }) => {
   return (
-    <Twemoji wrapper="div">
-      <MapGridContainer>
-        {Array.from(range(0, mapSize), (y) => {
-          return Array.from(range(0, mapSize), (x) => {
-            return <span key={`${x}-${y}`}>{floorChars[area.floorType]}</span>;
-          });
-        })}
-      </MapGridContainer>
-    </Twemoji>
+    <>
+      {/* floor */}
+      <div style={{ opacity: 0.5 }}>
+        <MapGridContainer>
+          {Array.from(range(0, mapSize), (y) => {
+            return Array.from(range(0, mapSize), (x) => {
+              return (
+                <span key={`${x}-${y}`}>{floorChars[area.floorType]}</span>
+              );
+            });
+          })}
+        </MapGridContainer>
+      </div>
+      {/* walls */}
+      <div style={{ zIndex: 0 }}>
+        <MapGridContainer>
+          {Array.from(range(0, mapSize), (y) => {
+            return Array.from(range(0, mapSize), (x) => {
+              const cell = area.map[y][x];
+              if (!cell) {
+                // 0 is nothing
+                return null;
+              }
+              const landChar = landChars[cell];
+              if (!landChar) {
+                return null;
+              }
+              return (
+                <span
+                  key={`${x}-${y}`}
+                  style={{
+                    gridArea: `${x + 1} / ${y + 1}`,
+                  }}
+                >
+                  {landChar}
+                </span>
+              );
+            });
+          })}
+        </MapGridContainer>
+      </div>
+    </>
   );
 };
 

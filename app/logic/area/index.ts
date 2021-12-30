@@ -1,6 +1,6 @@
 import seedrandom from "seedrandom";
 import { range } from "~/utils/range";
-import { Edge, EdgeItem, EdgeKind, generateEdge } from "./edge";
+import { Edge, EdgeItem, generateEdge } from "./edge";
 import { Floor, FloorType, generateFloor } from "./floor";
 import { landDef } from "./landDef";
 import { mapSize } from "./params";
@@ -43,7 +43,7 @@ function generateLand(edges: Edge, floor: Floor) {
     landFromEdge(edges.east) ||
     landFromEdge(edges.south) ||
     landFromEdge(edges.west) ||
-    landDef.mountain;
+    landDef[edges.default];
 
   map[0][0] = cornerWall;
   map[0][mapSize - 1] = cornerWall;

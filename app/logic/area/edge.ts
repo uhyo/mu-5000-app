@@ -7,6 +7,7 @@ export type Edge = {
   east: EdgeItem;
   south: EdgeItem;
   west: EdgeItem;
+  default: EdgeKind;
 };
 
 const edgeKindList = [
@@ -40,7 +41,7 @@ export type EdgeItem =
     };
 
 export function generateEdge(rng: Rng): Edge {
-  const edgeProb = 2; // 2 / 16
+  const edgeProb = 5; // 5 / 16
   const edgeRand = rng.int32();
   let hasNorthEdge = edgeRand % 16 < edgeProb;
   let hasEastEdge = (edgeRand >> 4) % 16 < edgeProb;
@@ -55,6 +56,7 @@ export function generateEdge(rng: Rng): Edge {
     hasWestEdge = false;
   }
   const edgeKind = edgeKindList[(edgeRand >> 16) & 15];
+
   return {
     north: hasNorthEdge
       ? { hasEdge: true, kind: edgeKind }
@@ -64,5 +66,6 @@ export function generateEdge(rng: Rng): Edge {
       ? { hasEdge: true, kind: edgeKind }
       : { hasEdge: false },
     west: hasWestEdge ? { hasEdge: true, kind: edgeKind } : { hasEdge: false },
+    default: edgeKind,
   };
 }
