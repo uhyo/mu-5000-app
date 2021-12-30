@@ -9,14 +9,16 @@ import {
   MapGridContainer,
   links as mapGridContainerLinks,
 } from "./grid/Container";
+import { PlayerInfo } from "./player";
 
 type Props = {
   area: Area;
+  player: PlayerInfo;
 };
 
 export const links: LinksFunction = () => [...mapGridContainerLinks()];
 
-export const Map: React.VFC<Props> = ({ area }) => {
+export const Map: React.VFC<Props> = ({ area, player }) => {
   return (
     <>
       {/* floor */}
@@ -49,7 +51,7 @@ export const Map: React.VFC<Props> = ({ area }) => {
                 <span
                   key={`${x}-${y}`}
                   style={{
-                    gridArea: `${x + 1} / ${y + 1}`,
+                    gridArea: `${y + 1} / ${x + 1}`,
                   }}
                 >
                   {landChar}
@@ -57,6 +59,18 @@ export const Map: React.VFC<Props> = ({ area }) => {
               );
             });
           })}
+        </MapGridContainer>
+      </div>
+      {/* player */}
+      <div style={{ zIndex: 0 }}>
+        <MapGridContainer>
+          <span
+            style={{
+              gridArea: `${player.y + 1} / ${player.x + 1}`,
+            }}
+          >
+            🏃
+          </span>
         </MapGridContainer>
       </div>
     </>

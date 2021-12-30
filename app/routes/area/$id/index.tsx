@@ -7,6 +7,8 @@ import {
 } from "~/components/area/grid/MapLayout";
 import { useClientOnly } from "~/utils/useClientOnly";
 import { Twemoji } from "~/components/utils/Twemoji";
+import { usePlayer } from "~/components/area/player";
+import { MainLoopProvider } from "~/components/area/mainloop";
 
 type LoaderType = {
   area: Area;
@@ -31,14 +33,25 @@ export const links: LinksFunction = () => [...mapLinks(), ...mapLayoutLinks()];
 
 export default function AreaRoute() {
   const { area } = useLoaderData<LoaderType>();
-  console.log(area);
+  return (
+    <MainLoopProvider>
+      <AreaRouteInner area={area} />
+    </MainLoopProvider>
+  );
+}
+
+const AreaRouteInner: React.VFC<{
+  area: Area;
+}> = ({ area }) => {
+  const player = usePlayer();
+
   const mapArea = useClientOnly(
     <Twemoji wrapper="div">
       <MapLayout>
-        <Map area={area} />
+        <Map area={area} player={player} />
       </MapLayout>
     </Twemoji>
   );
 
-  return mapArea;
-}
+  return <>{mapArea}</>;
+};
