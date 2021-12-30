@@ -25,3 +25,7 @@ export const landChars: Record<number, string | undefined> = {
   [landDef.ruins]: "🏚",
   [landDef.barber]: "💈",
 };
+
+export function isWall(land: number): boolean {
+  return land >= landDef.woods1 && land <= landDef.barber;
+}

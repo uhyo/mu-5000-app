@@ -43,7 +43,7 @@ export default function AreaRoute() {
 const AreaRouteInner: React.VFC<{
   area: Area;
 }> = ({ area }) => {
-  const player = usePlayer();
+  const player = usePlayer({ area });
 
   const mapArea = useClientOnly(
     <Twemoji wrapper="div">
