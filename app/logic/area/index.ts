@@ -3,8 +3,11 @@ import { range } from "~/utils/range";
 import { generateConnection as generateConnections } from "./connection";
 import { Edge, EdgeItem, generateEdge } from "./edge";
 import { Floor, FloorType, generateFloor } from "./floor";
+import { addRandomItems } from "./items";
 import { landDef } from "./landDef";
 import { mapSize } from "./params";
+
+type Rng = ReturnType<typeof seedrandom>;
 
 export type Area = {
   id: string;
@@ -27,7 +30,7 @@ export function createArea(areaId: string): Area | undefined {
   const floor = generateFloor(rng);
   const connections = generateConnections(rng);
 
-  const land = generateLand(edges, floor);
+  const land = generateLand(edges, floor, rng);
   return {
     id: areaId,
     ...land,
@@ -39,7 +42,7 @@ function validateAreaId(areaId: string): boolean {
   return /^[0-9a-fA-F]{4}$/.test(areaId);
 }
 
-function generateLand(edges: Edge, floor: Floor) {
+function generateLand(edges: Edge, floor: Floor, rng: Rng) {
   const floorType = floor.floorType;
 
   const map: number[][] = [];
@@ -87,6 +90,9 @@ function generateLand(edges: Edge, floor: Floor) {
       map[y][0] = landFromEdge(edges.west);
     }
   }
+
+  // add random walls
+  addRandomItems(map, rng, edges);
 
   return {
     floorType,
