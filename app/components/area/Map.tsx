@@ -13,12 +13,13 @@ import { PlayerInfo } from "./player";
 
 type Props = {
   area: Area;
+  areaIsLoading: boolean;
   player: PlayerInfo;
 };
 
 export const links: LinksFunction = () => [...mapGridContainerLinks()];
 
-export const Map: React.VFC<Props> = ({ area, player }) => {
+export const Map: React.VFC<Props> = ({ area, areaIsLoading, player }) => {
   return (
     <>
       {/* floor */}
@@ -62,7 +63,7 @@ export const Map: React.VFC<Props> = ({ area, player }) => {
         </MapGridContainer>
       </div>
       {/* player */}
-      <div style={{ zIndex: 0 }}>
+      <div style={{ zIndex: 0, display: areaIsLoading ? "none" : "block" }}>
         <MapGridContainer>
           <span
             style={{

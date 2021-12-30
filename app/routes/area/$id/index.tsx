@@ -1,4 +1,10 @@
-import { LinksFunction, LoaderFunction, useLoaderData, useParams } from "remix";
+import {
+  LinksFunction,
+  LoaderFunction,
+  useLoaderData,
+  useParams,
+  useTransition,
+} from "remix";
 import { Area, createArea } from "~/logic/area";
 import { Map, links as mapLinks } from "~/components/area/Map";
 import {
@@ -9,6 +15,7 @@ import { useClientOnly } from "~/utils/useClientOnly";
 import { Twemoji } from "~/components/utils/Twemoji";
 import { usePlayer } from "~/components/area/player";
 import { MainLoopProvider } from "~/components/area/mainloop";
+import { useAreaTransition } from "~/components/area/transition/useAreaTransition";
 
 type LoaderType = {
   area: Area;
@@ -43,12 +50,15 @@ export default function AreaRoute() {
 const AreaRouteInner: React.VFC<{
   area: Area;
 }> = ({ area }) => {
-  const player = usePlayer({ area });
+  const transition = useTransition();
+  const areaIsLoading = transition.state !== "idle";
+  const { player, setPlayerPosition } = usePlayer({ area, areaIsLoading });
+  useAreaTransition({ area, player, setPlayerPosition });
 
   const mapArea = useClientOnly(
     <Twemoji wrapper="div">
       <MapLayout>
-        <Map area={area} player={player} />
+        <Map area={area} player={player} areaIsLoading={areaIsLoading} />
       </MapLayout>
     </Twemoji>
   );

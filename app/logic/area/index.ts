@@ -1,13 +1,21 @@
 import seedrandom from "seedrandom";
 import { range } from "~/utils/range";
+import { generateConnection as generateConnections } from "./connection";
 import { Edge, EdgeItem, generateEdge } from "./edge";
 import { Floor, FloorType, generateFloor } from "./floor";
 import { landDef } from "./landDef";
 import { mapSize } from "./params";
 
 export type Area = {
+  id: string;
   floorType: FloorType;
   map: readonly (readonly number[])[];
+  connections: {
+    north: string;
+    east: string;
+    south: string;
+    west: string;
+  };
 };
 
 export function createArea(areaId: string): Area | undefined {
@@ -17,9 +25,14 @@ export function createArea(areaId: string): Area | undefined {
   const rng = seedrandom(areaId);
   const edges = generateEdge(rng);
   const floor = generateFloor(rng);
+  const connections = generateConnections(rng);
 
   const land = generateLand(edges, floor);
-  return land;
+  return {
+    id: areaId,
+    ...land,
+    connections,
+  };
 }
 
 function validateAreaId(areaId: string): boolean {

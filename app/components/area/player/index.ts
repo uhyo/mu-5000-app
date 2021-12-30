@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { Area } from "~/logic/area";
 import { isWall } from "~/logic/area/landDef";
 import { mapSize } from "~/logic/area/params";
+import { useAreaTransition } from "../transition/useAreaTransition";
 import { KeyType, useKeyboardInput } from "./useKeyboardInput";
 
 export type PlayerInfo = {
@@ -11,9 +12,17 @@ export type PlayerInfo = {
 
 type UsePlayerInput = {
   area: Area;
+  areaIsLoading: boolean;
+};
+type UsePlayerOutput = {
+  player: PlayerInfo;
+  setPlayerPosition: (position: { x: number; y: number }) => void;
 };
 
-export function usePlayer({ area }: UsePlayerInput): PlayerInfo {
+export function usePlayer({
+  area,
+  areaIsLoading,
+}: UsePlayerInput): UsePlayerOutput {
   const [playerPosition, setPlayerPosition] = useState<PlayerInfo>(() => ({
     x: Math.floor(mapSize / 2),
     y: Math.floor(mapSize / 2),
@@ -21,6 +30,9 @@ export function usePlayer({ area }: UsePlayerInput): PlayerInfo {
 
   const keyInputHandler = useCallback(
     (keyType: KeyType) => {
+      if (areaIsLoading) {
+        return;
+      }
       switch (keyType) {
         case "ArrowUp":
           setPlayerPosition(({ x, y }) => ({
@@ -48,12 +60,15 @@ export function usePlayer({ area }: UsePlayerInput): PlayerInfo {
           break;
       }
     },
-    [area]
+    [area, areaIsLoading]
   );
 
   useKeyboardInput({ onKeyInput: keyInputHandler });
 
-  return playerPosition;
+  return {
+    player: playerPosition,
+    setPlayerPosition,
+  };
 }
 
 function getLand(area: Area, x: number, y: number): number {
