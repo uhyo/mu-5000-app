@@ -58,10 +58,19 @@ const AreaRouteInner: React.VFC<{
   const mapArea = useClientOnly(
     <Twemoji wrapper="div">
       <MapLayout>
-        <Map area={area} player={player} areaIsLoading={areaIsLoading} />
+        <Map area={area} player={player} />
       </MapLayout>
     </Twemoji>
   );
 
-  return <>{mapArea}</>;
+  return (
+    <div
+      style={{
+        opacity: areaIsLoading ? "0.3" : "1",
+        transition: "opacity 350ms ease-in-out",
+      }}
+    >
+      {mapArea}
+    </div>
+  );
 };

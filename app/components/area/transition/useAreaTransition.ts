@@ -15,43 +15,71 @@ export function useAreaTransition({
   player,
   setPlayerPosition,
 }: UseAreaTransitionInput) {
-  const didAreaTransition = useRef<string | null>(null);
+  const nextPlayerPosition = useRef<{
+    areaId: string;
+    x: number;
+    y: number;
+  } | null>(null);
 
   const navigate = useNavigate();
 
-  // transition happens once per area
-  if (didAreaTransition.current === area.id) {
-    return;
-  }
-  // if player is at the edge of area, transition to the next area
-  // north
-  if (player.y === 0) {
-    didAreaTransition.current = area.id;
-    navigate(getAreaPath(area.connections.north));
-    setPlayerPosition({ x: player.x, y: mapSize - 2 });
-    return;
-  }
-  // east
-  if (player.x === mapSize - 1) {
-    didAreaTransition.current = area.id;
-    navigate(getAreaPath(area.connections.east));
-    setPlayerPosition({ x: 1, y: player.y });
-    return;
-  }
-  // south
-  if (player.y === mapSize - 1) {
-    didAreaTransition.current = area.id;
-    navigate(getAreaPath(area.connections.south));
-    setPlayerPosition({ x: player.x, y: 1 });
-    return;
-  }
-  // west
-  if (player.x === 0) {
-    didAreaTransition.current = area.id;
-    navigate(getAreaPath(area.connections.west));
-    setPlayerPosition({ x: mapSize - 2, y: player.y });
-    return;
-  }
+  useEffect(() => {
+    // transition happens once per area
+    if (nextPlayerPosition.current !== null) {
+      return;
+    }
+    // if player is at the edge of area, transition to the next area
+    // north
+    if (player.y === 0) {
+      navigate(getAreaPath(area.connections.north));
+      nextPlayerPosition.current = {
+        areaId: area.connections.north,
+        x: player.x,
+        y: mapSize - 2,
+      };
+      return;
+    }
+    // east
+    if (player.x === mapSize - 1) {
+      navigate(getAreaPath(area.connections.east));
+      nextPlayerPosition.current = {
+        areaId: area.connections.east,
+        x: 1,
+        y: player.y,
+      };
+      return;
+    }
+    // south
+    if (player.y === mapSize - 1) {
+      navigate(getAreaPath(area.connections.south));
+      nextPlayerPosition.current = {
+        areaId: area.connections.south,
+        x: player.x,
+        y: 1,
+      };
+      return;
+    }
+    // west
+    if (player.x === 0) {
+      navigate(getAreaPath(area.connections.west));
+      nextPlayerPosition.current = {
+        areaId: area.connections.west,
+        x: mapSize - 2,
+        y: player.y,
+      };
+      return;
+    }
+  }, [area, player, navigate]);
+
+  useEffect(() => {
+    if (nextPlayerPosition.current?.areaId === area.id) {
+      setPlayerPosition({
+        x: nextPlayerPosition.current.x,
+        y: nextPlayerPosition.current.y,
+      });
+      nextPlayerPosition.current = null;
+    }
+  }, [area.id, setPlayerPosition]);
 }
 
 function getAreaPath(areaId: string) {
