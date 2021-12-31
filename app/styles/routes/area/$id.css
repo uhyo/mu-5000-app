@@ -4,7 +4,8 @@
   display: grid;
   grid-template: "game logs" calc(
     var(--cell-size) * var(--map-size) + var(--cell-gap) * (var(--map-size) - 1)
-  ) / auto 1fr;
+  ) "item item" auto
+   / auto 1fr;
   gap: 4px;
 }
 
@@ -19,4 +20,12 @@
   font-family: 'VT323', monospace;
   font-size: 20px;
   overflow-y: auto;
+}
+
+.area-layout-item {
+  grid-area: item;
+  background-color: #445566;
+  color: #ffffff;
+  font-family: 'VT323', monospace;
+  font-size: 20px;
 }

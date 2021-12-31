@@ -2,6 +2,8 @@
 
 import { CSSProperties, useEffect, useRef } from "react";
 import { LinksFunction, Outlet } from "remix";
+import { Items } from "~/components/items/Items";
+import { ItemsStoreProvider } from "~/components/items/ItemsStoreContext";
 import { Logs } from "~/components/logs/Logs";
 import { LogsProvider, useLogs } from "~/components/logs/LogsContext";
 import { mapSize } from "~/logic/area/params";
@@ -27,7 +29,9 @@ const cellGap = "2px";
 export default function AreaLayout() {
   return (
     <LogsProvider>
-      <AreaLayoutInner />
+      <ItemsStoreProvider>
+        <AreaLayoutInner />
+      </ItemsStoreProvider>
     </LogsProvider>
   );
 }
@@ -60,6 +64,9 @@ const AreaLayoutInner: React.VFC = () => {
       </div>
       <div className="area-layout-logs" ref={logsAreaRef}>
         <Logs />
+      </div>
+      <div className="area-layout-item">
+        <Items />
       </div>
     </div>
   );
