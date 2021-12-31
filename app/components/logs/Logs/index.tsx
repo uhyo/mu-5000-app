@@ -7,10 +7,14 @@ export const Logs: React.VFC = () => {
       style={{
         height: "100%",
         padding: "4px",
+        lineHeight: "1.1",
+        fontFeatureSettings: '"liga" 0',
       }}
     >
       {logs.map((log) => (
-        <p key={log.id}>{log.content}</p>
+        <p style={{ margin: "0" }} key={log.id}>
+          {log.content}
+        </p>
       ))}
     </div>
   );

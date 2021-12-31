@@ -16,6 +16,7 @@ import { Twemoji } from "~/components/utils/Twemoji";
 import { usePlayer } from "~/components/area/player";
 import { MainLoopProvider } from "~/components/area/mainloop";
 import { useAreaTransition } from "~/components/area/transition/useAreaTransition";
+import { useAreaEntranceLog } from "~/components/area/gamelog/areaEntranceLog";
 
 type LoaderType = {
   area: Area;
@@ -54,6 +55,7 @@ const AreaRouteInner: React.VFC<{
   const areaIsLoading = transition.state !== "idle";
   const { player, setPlayerPosition } = usePlayer({ area, areaIsLoading });
   useAreaTransition({ area, player, setPlayerPosition });
+  useAreaEntranceLog(area);
 
   const mapArea = useClientOnly(
     <Twemoji wrapper="div">

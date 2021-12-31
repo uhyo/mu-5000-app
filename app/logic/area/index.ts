@@ -1,5 +1,6 @@
 import seedrandom from "seedrandom";
 import { range } from "~/utils/range";
+import { getAreaName } from "./areaName";
 import { generateConnection as generateConnections } from "./connection";
 import { Edge, EdgeItem, generateEdge } from "./edge";
 import { Floor, FloorType, generateFloor } from "./floor";
@@ -11,6 +12,7 @@ type Rng = ReturnType<typeof seedrandom>;
 
 export type Area = {
   id: string;
+  name: string;
   floorType: FloorType;
   map: readonly (readonly number[])[];
   connections: {
@@ -29,10 +31,12 @@ export function createArea(areaId: string): Area | undefined {
   const edges = generateEdge(rng);
   const floor = generateFloor(rng);
   const connections = generateConnections(rng);
+  const name = getAreaName(rng, areaId);
 
   const land = generateLand(edges, floor, rng);
   return {
     id: areaId,
+    name,
     ...land,
     connections,
   };
