@@ -2,7 +2,8 @@
 
 import { LinksFunction, Outlet } from "remix";
 import { Logs } from "~/components/logs/Logs";
-import styles from "./$id.css";
+import { LogsProvider } from "~/components/logs/LogsContext";
+import styles from "~/styles/routes/area/$id.css";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -20,13 +21,15 @@ export const links: LinksFunction = () => [
 
 export default function AreaLayout() {
   return (
-    <div className="area-layout">
-      <div className="area-layout-game">
-        <Outlet />
+    <LogsProvider>
+      <div className="area-layout">
+        <div className="area-layout-game">
+          <Outlet />
+        </div>
+        <div className="area-layout-logs">
+          <Logs />
+        </div>
       </div>
-      <div className="area-layout-logs">
-        <Logs />
-      </div>
-    </div>
+    </LogsProvider>
   );
 }

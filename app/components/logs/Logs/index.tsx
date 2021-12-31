@@ -1,4 +1,7 @@
+import { useLogs } from "../LogsContext";
+
 export const Logs: React.VFC = () => {
+  const { logs } = useLogs();
   return (
     <div
       style={{
@@ -6,7 +9,9 @@ export const Logs: React.VFC = () => {
         padding: "4px",
       }}
     >
-      Logs
+      {logs.map((log) => (
+        <p key={log.id}>{log.content}</p>
+      ))}
     </div>
   );
 };
