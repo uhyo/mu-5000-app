@@ -1,0 +1,19 @@
+.area-layout {
+  margin: 0 auto;
+  max-width: 800px;
+  display: grid;
+  grid-template: "game logs" auto / auto 1fr;
+  gap: 4px;
+}
+
+.area-layout-game {
+  grid-area: game;
+}
+
+.area-layout-logs {
+  grid-area: logs;
+  background-color: #333333;
+  color: #ffffff;
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+}

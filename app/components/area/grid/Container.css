@@ -9,4 +9,5 @@
 .map-grid-container .emoji {
   width: var(--cell-size);
   height: var(--cell-size);
+  vertical-align: top;
 }
