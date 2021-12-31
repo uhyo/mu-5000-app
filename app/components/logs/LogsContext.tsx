@@ -2,6 +2,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -41,6 +42,16 @@ function useLogsLogic(): Logs {
     logs: [],
     nextId: 1,
   }));
+
+  useEffect(() => {
+    // erase old logs
+    if (logs.logs.length > 100) {
+      setLogs((prev) => ({
+        ...prev,
+        logs: prev.logs.slice(-30),
+      }));
+    }
+  }, [logs]);
 
   const addLog = useCallback((content: string) => {
     setLogs((logs) => ({

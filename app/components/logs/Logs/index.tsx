@@ -5,7 +5,6 @@ export const Logs: React.VFC = () => {
   return (
     <div
       style={{
-        height: "100%",
         padding: "4px",
         lineHeight: "1.1",
         fontFeatureSettings: '"liga" 0',

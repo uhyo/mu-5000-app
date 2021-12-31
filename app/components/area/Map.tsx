@@ -4,7 +4,6 @@ import { FloorType } from "~/logic/area/floor";
 import { landChars } from "~/logic/area/landDef";
 import { mapSize } from "~/logic/area/params";
 import { range } from "~/utils/range";
-import { Twemoji } from "../utils/Twemoji";
 import {
   MapGridContainer,
   links as mapGridContainerLinks,

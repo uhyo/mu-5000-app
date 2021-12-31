@@ -8,18 +8,5 @@ export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 export const MapGridContainer: React.VFC<{
   children: React.ReactNode;
 }> = ({ children }) => {
-  const cellSize = `min(40px, 80vw / ${mapSize})`;
-  return (
-    <div
-      style={
-        {
-          "--cell-size": cellSize,
-          "--map-size": mapSize,
-        } as CSSProperties
-      }
-      className="map-grid-container"
-    >
-      {children}
-    </div>
-  );
+  return <div className="map-grid-container">{children}</div>;
 };

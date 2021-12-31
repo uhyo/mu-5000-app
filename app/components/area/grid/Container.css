@@ -3,7 +3,7 @@
   font-size: var(--cell-size);
   grid-template-columns: repeat(var(--map-size), var(--cell-size));
   grid-template-rows: repeat(var(--map-size), var(--cell-size));
-  gap: 2px;
+  gap: var(--cell-gap);
 }
 
 .map-grid-container .emoji {

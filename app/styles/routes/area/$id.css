@@ -2,7 +2,9 @@
   margin: 0 auto;
   max-width: 800px;
   display: grid;
-  grid-template: "game logs" auto / auto 1fr;
+  grid-template: "game logs" calc(
+    var(--cell-size) * var(--map-size) + var(--cell-gap) * (var(--map-size) - 1)
+  ) / auto 1fr;
   gap: 4px;
 }
 
@@ -16,4 +18,5 @@
   color: #ffffff;
   font-family: 'VT323', monospace;
   font-size: 20px;
+  overflow-y: auto;
 }
