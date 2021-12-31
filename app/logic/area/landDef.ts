@@ -32,3 +32,7 @@ export const landChars: Record<number, string | undefined> = {
 export function isWall(land: number): boolean {
   return land >= landDef.woods1 && land <= landDef.barber;
 }
+
+export function isItem(land: number): boolean {
+  return land >= landDef.mu;
+}

@@ -1,11 +1,11 @@
 import { useEffect, useRef } from "react";
 import { useNavigate } from "remix";
-import { Area } from "~/logic/area";
+import { AreaMinusMap } from "~/logic/area";
 import { mapSize } from "~/logic/area/params";
 import { PlayerInfo } from "../player";
 
 type UseAreaTransitionInput = {
-  area: Area;
+  area: AreaMinusMap;
   player: PlayerInfo;
   setPlayerPosition: (position: { x: number; y: number }) => void;
 };

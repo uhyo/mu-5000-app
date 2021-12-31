@@ -1,5 +1,5 @@
 import { LinksFunction } from "remix";
-import { Area } from "~/logic/area";
+import { Area, AreaMap, AreaMinusMap } from "~/logic/area";
 import { FloorType } from "~/logic/area/floor";
 import { landChars } from "~/logic/area/landDef";
 import { mapSize } from "~/logic/area/params";
@@ -11,13 +11,14 @@ import {
 import { PlayerInfo } from "./player";
 
 type Props = {
-  area: Area;
+  area: AreaMinusMap;
+  map: AreaMap;
   player: PlayerInfo;
 };
 
 export const links: LinksFunction = () => [...mapGridContainerLinks()];
 
-export const Map: React.VFC<Props> = ({ area, player }) => {
+export const Map: React.VFC<Props> = ({ area, map, player }) => {
   return (
     <>
       {/* floor */}
@@ -37,7 +38,7 @@ export const Map: React.VFC<Props> = ({ area, player }) => {
         <MapGridContainer>
           {Array.from(range(0, mapSize), (y) => {
             return Array.from(range(0, mapSize), (x) => {
-              const cell = area.map[y][x];
+              const cell = map[y][x];
               if (!cell) {
                 // 0 is nothing
                 return null;

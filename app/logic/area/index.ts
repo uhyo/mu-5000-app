@@ -14,7 +14,7 @@ export type Area = {
   id: string;
   name: string;
   floorType: FloorType;
-  map: readonly (readonly number[])[];
+  map: AreaMap;
   connections: {
     north: string;
     east: string;
@@ -22,6 +22,10 @@ export type Area = {
     west: string;
   };
 };
+
+export type AreaMap = readonly (readonly number[])[];
+
+export type AreaMinusMap = Omit<Area, "map">;
 
 export function createArea(areaId: string): Area | undefined {
   if (!validateAreaId(areaId)) {

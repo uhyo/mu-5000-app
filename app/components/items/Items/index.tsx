@@ -1,3 +1,4 @@
+import { Twemoji } from "~/components/utils/Twemoji";
 import { itemNames } from "~/logic/item/itemDef";
 import { useItemsStore } from "../ItemsStoreContext";
 
@@ -10,6 +11,8 @@ export const Items: React.VFC = () => {
         display: "grid",
         gridTemplateColumns: "repeat(auto-fill, 10ch)",
         gridTemplateRows: "repeat(4, minmax(1em, auto))",
+        padding: "2px",
+        gap: "2px",
       }}
     >
       {Array.from(items.entries(), ([itemType, itemNum]) => {
@@ -20,7 +23,8 @@ export const Items: React.VFC = () => {
 
         return (
           <div key={itemType}>
-            ${itemChar} ${String(Math.min(itemNum, 9999)).padStart(4, "0")}
+            <Twemoji wrapper="span">{itemChar}</Twemoji>{" "}
+            {String(Math.min(itemNum, 9999)).padStart(4, "0")}
           </div>
         );
       })}

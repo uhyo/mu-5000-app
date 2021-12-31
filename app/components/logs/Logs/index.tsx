@@ -1,3 +1,4 @@
+import { Twemoji } from "~/components/utils/Twemoji";
 import { useLogs } from "../LogsContext";
 
 export const Logs: React.VFC = () => {
@@ -12,7 +13,7 @@ export const Logs: React.VFC = () => {
     >
       {logs.map((log) => (
         <p style={{ margin: "0" }} key={log.id}>
-          {log.content}
+          <Twemoji wrapper="span">{log.content}</Twemoji>
         </p>
       ))}
     </div>

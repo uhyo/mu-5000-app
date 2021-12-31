@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { Area } from "~/logic/area";
+import { Area, AreaMap, AreaMinusMap } from "~/logic/area";
 import { isWall } from "~/logic/area/landDef";
 import { mapSize } from "~/logic/area/params";
 import { useAreaTransition } from "../transition/useAreaTransition";
@@ -11,7 +11,7 @@ export type PlayerInfo = {
 };
 
 type UsePlayerInput = {
-  area: Area;
+  map: AreaMap;
   areaIsLoading: boolean;
 };
 type UsePlayerOutput = {
@@ -20,7 +20,7 @@ type UsePlayerOutput = {
 };
 
 export function usePlayer({
-  area,
+  map,
   areaIsLoading,
 }: UsePlayerInput): UsePlayerOutput {
   const [playerPosition, setPlayerPosition] = useState<PlayerInfo>(() => ({
@@ -37,30 +37,30 @@ export function usePlayer({
         case "ArrowUp":
           setPlayerPosition(({ x, y }) => ({
             x,
-            y: maybeMove(y, y - 1, getLand(area, x, y - 1)),
+            y: maybeMove(y, y - 1, getLand(map, x, y - 1)),
           }));
           break;
         case "ArrowDown":
           setPlayerPosition(({ x, y }) => ({
             x,
-            y: maybeMove(y, y + 1, getLand(area, x, y + 1)),
+            y: maybeMove(y, y + 1, getLand(map, x, y + 1)),
           }));
           break;
         case "ArrowLeft":
           setPlayerPosition(({ x, y }) => ({
-            x: maybeMove(x, x - 1, getLand(area, x - 1, y)),
+            x: maybeMove(x, x - 1, getLand(map, x - 1, y)),
             y,
           }));
           break;
         case "ArrowRight":
           setPlayerPosition(({ x, y }) => ({
-            x: maybeMove(x, x + 1, getLand(area, x + 1, y)),
+            x: maybeMove(x, x + 1, getLand(map, x + 1, y)),
             y,
           }));
           break;
       }
     },
-    [area, areaIsLoading]
+    [map, areaIsLoading]
   );
 
   useKeyboardInput({ onKeyInput: keyInputHandler });
@@ -71,8 +71,8 @@ export function usePlayer({
   };
 }
 
-function getLand(area: Area, x: number, y: number): number {
-  return area.map[y]?.[x] ?? 0;
+function getLand(map: AreaMap, x: number, y: number): number {
+  return map[y]?.[x] ?? 0;
 }
 
 function maybeMove(originalAt: number, newAt: number, newLand: number): number {

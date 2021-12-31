@@ -22,10 +22,22 @@
   overflow-y: auto;
 }
 
+.area-layout-logs .emoji {
+  width: 20px;
+  height: 20px;
+  vertical-align: text-bottom;
+}
+
 .area-layout-item {
   grid-area: item;
   background-color: #445566;
   color: #ffffff;
   font-family: 'VT323', monospace;
   font-size: 20px;
+}
+
+.area-layout-item .emoji {
+  width: 20px;
+  height: 20px;
+  vertical-align: text-bottom;
 }
