@@ -9,8 +9,20 @@
   gap: 4px;
 }
 
+@media (max-width: 780px) {
+  .area-layout {
+    height: 100%;
+    grid-template: "logs" 1fr
+    "game" calc(
+    var(--cell-size) * var(--map-size) + var(--cell-gap) * (var(--map-size) - 1)
+  )
+    "item" auto / 1fr;
+  }
+}
+
 .area-layout-game {
   grid-area: game;
+  align-self: center;
 }
 
 .area-layout-logs {

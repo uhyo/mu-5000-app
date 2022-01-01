@@ -23,8 +23,13 @@ export const links: LinksFunction = () => [
   },
 ];
 
-const cellSize = `min(40px, 80vw / ${mapSize})`;
 const cellGap = "2px";
+const cellSize = `min(40px, (100vw - ${cellGap} * ${
+  mapSize - 1
+})  / ${mapSize})`;
+const areaSize = `calc(var(--cell-size) * ${mapSize} + var(--cell-gap) * ${
+  mapSize - 1
+})`;
 
 export default function AreaLayout() {
   return (
@@ -56,6 +61,7 @@ const AreaLayoutInner: React.VFC = () => {
           "--cell-size": cellSize,
           "--cell-gap": cellGap,
           "--map-size": mapSize,
+          "--area-size": areaSize,
         } as CSSProperties
       }
     >

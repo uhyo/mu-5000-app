@@ -1,4 +1,6 @@
 .map-grid-container {
+  width: var(--area-size);
+  margin: 0 auto;
   display: grid;
   font-size: var(--cell-size);
   grid-template-columns: repeat(var(--map-size), var(--cell-size));
