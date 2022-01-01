@@ -100,5 +100,16 @@ export function touchItem({
       }
       break;
     }
+    case landDef.gift: {
+      addItem("gift", 1);
+      addLog("You found a 🎁!");
+      break;
+    }
+    case landDef.hat: {
+      // TODO: add more transformations
+      addItem("santaClaus", 1);
+      addLog("🎩 You got a Santa Claus hat!");
+      break;
+    }
   }
 }

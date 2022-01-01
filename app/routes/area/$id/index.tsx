@@ -20,6 +20,7 @@ import { useAreaEntranceLog } from "~/components/area/gamelog/areaEntranceLog";
 import { useCallback, useEffect, useState } from "react";
 import { useItemTouch } from "~/components/items/useItemTouch";
 import { useItemsStore } from "~/components/items/ItemsStoreContext";
+import { getPlayerIcon } from "~/logic/item/getPlayerIcon";
 
 type LoaderType = {
   area: Area;
@@ -113,7 +114,12 @@ function useAreaRouteLogic(areaFromServer: Area) {
   const mapArea = useClientOnly(
     <Twemoji wrapper="div">
       <MapLayout>
-        <Map area={areaFromServer} map={map} player={player} />
+        <Map
+          area={areaFromServer}
+          map={map}
+          player={player}
+          playerIcon={getPlayerIcon(items)}
+        />
       </MapLayout>
     </Twemoji>
   );

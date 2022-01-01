@@ -37,7 +37,7 @@ export function createArea(areaId: string): Area | undefined {
   const connections = generateConnections(rng);
   const name = getAreaName(rng, areaId);
 
-  const land = generateLand(edges, floor, rng);
+  const land = generateLand(areaId, edges, floor, rng);
   return {
     id: areaId,
     name,
@@ -50,7 +50,7 @@ function validateAreaId(areaId: string): boolean {
   return /^[0-9a-fA-F]{4}$/.test(areaId);
 }
 
-function generateLand(edges: Edge, floor: Floor, rng: Rng) {
+function generateLand(areaId: string, edges: Edge, floor: Floor, rng: Rng) {
   const floorType = floor.floorType;
 
   const map: number[][] = [];
@@ -100,7 +100,7 @@ function generateLand(edges: Edge, floor: Floor, rng: Rng) {
   }
 
   // add random walls
-  addRandomItems(map, rng, edges);
+  addRandomItems(areaId, map, rng, edges);
 
   return {
     floorType,

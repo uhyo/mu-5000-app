@@ -14,11 +14,12 @@ type Props = {
   area: AreaMinusMap;
   map: AreaMap;
   player: PlayerInfo;
+  playerIcon: string;
 };
 
 export const links: LinksFunction = () => [...mapGridContainerLinks()];
 
-export const Map: React.VFC<Props> = ({ area, map, player }) => {
+export const Map: React.VFC<Props> = ({ area, map, player, playerIcon }) => {
   return (
     <>
       {/* floor */}
@@ -69,7 +70,7 @@ export const Map: React.VFC<Props> = ({ area, map, player }) => {
               gridArea: `${player.y + 1} / ${player.x + 1}`,
             }}
           >
-            🏃
+            {playerIcon}
           </span>
         </MapGridContainer>
       </div>

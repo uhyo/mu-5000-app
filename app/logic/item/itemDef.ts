@@ -7,6 +7,8 @@ export const itemTypes = [
   "meat",
   "poop",
   "sparkle",
+  "gift",
+  "santaClaus",
 ] as const;
 
 export type ItemType = typeof itemTypes[number];
@@ -20,4 +22,6 @@ export const itemNames: Record<ItemType, string> = {
   meat: "🍖",
   poop: "💩",
   sparkle: "✨",
+  gift: "🎁",
+  santaClaus: "🎅",
 };
