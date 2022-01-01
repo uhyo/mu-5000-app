@@ -25,16 +25,24 @@ export function touchItem({
       break;
     case landDef.nightMarket: {
       const moneyBags = clearItem("moneyBag");
-      if (moneyBags === 0) {
-        addLog("🌃 Nightmarket: you don't have any 💰!");
-      } else {
+      if (moneyBags > 0) {
         addItem("mu", moneyBags * 10);
         addLog(
           `🌃 Nightmarket: you used up ${moneyBags} 💰s and bought ${
             moneyBags * 10
           } 🈚s️!`
         );
+        break;
       }
+      const meats = clearItem("meat");
+      if (meats > 0) {
+        addItem("mu", meats * 3);
+        addLog(
+          `🌃 Nightmarket: you exchaged ${meats} 🍖s with ${meats * 3} 🈚s️!`
+        );
+        break;
+      }
+      addLog("🌃 Nightmarket: you don't have any 💰!");
     }
     case landDef.pig: {
       addItem("pig", 1);
@@ -157,6 +165,45 @@ export function touchItem({
       addLog(
         `You used up ${gears} ⚙️s and repaired 🤖. You got ${gears * 10} ✨s!`
       );
+      break;
+    }
+    case landDef.farmer: {
+      const pigs = getItem("pig");
+      const sheeps = getItem("sheep");
+      const roosters = getItem("rooster");
+      if (pigs === 0 && sheeps === 0 && roosters === 0) {
+        addLog("🧑‍🌾: Hello!");
+        break;
+      }
+      if (pigs >= sheeps && pigs >= roosters) {
+        // sell pigs to get mu
+        addItem("mu", pigs);
+        addItem("pig", -pigs);
+        addLog(`🧑‍🌾 You sold ${pigs} 🐖s to get ${pigs} 🈚s!`);
+        break;
+      } else if (sheeps >= pigs && sheeps >= roosters) {
+        // sell sheeps to get mu
+        addItem("mu", sheeps);
+        addItem("sheep", -sheeps);
+        addLog(`🧑‍🌾 You sold ${sheeps} 🐑s to get ${sheeps} 🈚s!`);
+        break;
+      } else {
+        // sell roosters to get mu
+        addItem("mu", roosters);
+        addItem("rooster", -roosters);
+        addLog(`🧑‍🌾 You sold ${roosters} 🐓s to get ${roosters} 🈚s!`);
+        break;
+      }
+    }
+    case landDef.scissors: {
+      const gifts = clearItem("gift");
+      if (gifts === 0) {
+        addLog("✂️ You have nothing to cut.");
+        break;
+      }
+      const randomFactor = Math.floor(Math.random() * 3) + 8;
+      addItem("mu", gifts * randomFactor);
+      addLog(`✂️ You opened ${gifts} 🎁s and got ${gifts * randomFactor} 🈚s!`);
       break;
     }
   }
