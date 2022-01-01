@@ -23,7 +23,9 @@ export function addRandomItems(map: number[][], rng: Rng, edges: Edge) {
   for (const _ of range(0, itemCount)) {
     const x = Math.floor(rng.double() * insetAreaSize) + 1;
     const y = Math.floor(rng.double() * insetAreaSize) + 1;
-    // TODO: add more items
-    map[y][x] = landDef.mu;
+    map[y][x] =
+      itemRandomList[Math.floor(rng.double() * itemRandomList.length)];
   }
 }
+
+const itemRandomList = [landDef.moneyBag, landDef.mu];

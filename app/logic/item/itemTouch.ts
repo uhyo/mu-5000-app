@@ -13,5 +13,9 @@ export function touchItem({ mapItem, addItem, addLog }: TouchItemInput): void {
       addItem("mu", 1);
       addLog("You found a 🈚️!");
       break;
+    case landDef.moneyBag:
+      addItem("moneyBag", 1);
+      addLog("You found a 💰!");
+      break;
   }
 }

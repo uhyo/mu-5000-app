@@ -13,6 +13,7 @@ export const landDef = {
   barber: 10,
   // items
   mu: 32,
+  moneyBag: 33,
 };
 
 export const landChars: Record<number, string | undefined> = {
@@ -27,6 +28,7 @@ export const landChars: Record<number, string | undefined> = {
   [landDef.ruins]: "🏚",
   [landDef.barber]: "💈",
   [landDef.mu]: "🈚️",
+  [landDef.moneyBag]: "💰",
 };
 
 export function isWall(land: number): boolean {
