@@ -350,6 +350,11 @@ export function touchItem({
       addLog("🏜Desert: you used 100 💧s to grow a 🌱!");
       break;
     }
+    case landDef.sa: {
+      addItem("sa", 1);
+      addLog("You found a 🈂️!");
+      break;
+    }
   }
 
   function clearItem(itemType: ItemType): number {

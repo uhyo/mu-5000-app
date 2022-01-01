@@ -34,6 +34,7 @@ export const landDef = {
   bathtub: 51,
   mechanic: 52,
   desert: 53,
+  sa: 54,
 };
 
 export const landChars: Record<number, string | undefined> = {
@@ -69,6 +70,7 @@ export const landChars: Record<number, string | undefined> = {
   [landDef.bathtub]: "🛁",
   [landDef.mechanic]: "🧑‍🔧",
   [landDef.desert]: "🏜️",
+  [landDef.sa]: "🈂️",
 };
 
 export function isWall(land: number): boolean {
