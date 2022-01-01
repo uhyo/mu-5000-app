@@ -1,18 +1,22 @@
 import { useEffect, useRef } from "react";
 import { useNavigate } from "remix";
+import { ItemMap } from "~/components/items/ItemsStoreContext";
 import { AreaMinusMap } from "~/logic/area";
 import { mapSize } from "~/logic/area/params";
+import { getOrElse } from "~/utils/getOrElse";
 import { PlayerInfo } from "../player";
 
 type UseAreaTransitionInput = {
   area: AreaMinusMap;
   player: PlayerInfo;
+  items: ItemMap;
   setPlayerPosition: (position: { x: number; y: number }) => void;
 };
 
 export function useAreaTransition({
   area,
   player,
+  items,
   setPlayerPosition,
 }: UseAreaTransitionInput) {
   const nextPlayerPosition = useRef<{
@@ -24,6 +28,7 @@ export function useAreaTransition({
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(nextPlayerPosition);
     // transition happens once per area
     if (nextPlayerPosition.current !== null) {
       return;
@@ -31,9 +36,10 @@ export function useAreaTransition({
     // if player is at the edge of area, transition to the next area
     // north
     if (player.y === 0) {
-      navigate(getAreaPath(area.connections.north));
+      const nextArea = getNextArea(items, area.connections.north);
+      navigate(getAreaPath(nextArea));
       nextPlayerPosition.current = {
-        areaId: area.connections.north,
+        areaId: nextArea,
         x: player.x,
         y: mapSize - 2,
       };
@@ -41,9 +47,10 @@ export function useAreaTransition({
     }
     // east
     if (player.x === mapSize - 1) {
-      navigate(getAreaPath(area.connections.east));
+      const nextArea = getNextArea(items, area.connections.east);
+      navigate(getAreaPath(nextArea));
       nextPlayerPosition.current = {
-        areaId: area.connections.east,
+        areaId: nextArea,
         x: 1,
         y: player.y,
       };
@@ -51,9 +58,10 @@ export function useAreaTransition({
     }
     // south
     if (player.y === mapSize - 1) {
-      navigate(getAreaPath(area.connections.south));
+      const nextArea = getNextArea(items, area.connections.south);
+      navigate(getAreaPath(nextArea));
       nextPlayerPosition.current = {
-        areaId: area.connections.south,
+        areaId: nextArea,
         x: player.x,
         y: 1,
       };
@@ -61,15 +69,16 @@ export function useAreaTransition({
     }
     // west
     if (player.x === 0) {
-      navigate(getAreaPath(area.connections.west));
+      const nextArea = getNextArea(items, area.connections.west);
+      navigate(getAreaPath(nextArea));
       nextPlayerPosition.current = {
-        areaId: area.connections.west,
+        areaId: nextArea,
         x: mapSize - 2,
         y: player.y,
       };
       return;
     }
-  }, [area, player, navigate]);
+  }, [area, player, items, navigate]);
 
   useEffect(() => {
     if (nextPlayerPosition.current?.areaId === area.id) {
@@ -80,6 +89,18 @@ export function useAreaTransition({
       nextPlayerPosition.current = null;
     }
   }, [area.id, setPlayerPosition]);
+}
+
+function getNextArea(items: ItemMap, nextAreaId: string) {
+  let next = parseInt(nextAreaId, 16);
+  // if items are not enough, area is restricted
+  const sparkle = getOrElse(items, "sparkle", 0);
+  if (sparkle < 50) {
+    next &= 0x0fff;
+  } else if (sparkle < 500) {
+    next &= 0x1fff;
+  }
+  return next.toString(16).padStart(4, "0");
 }
 
 function getAreaPath(areaId: string) {

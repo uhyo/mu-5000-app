@@ -19,6 +19,7 @@ import { useAreaTransition } from "~/components/area/transition/useAreaTransitio
 import { useAreaEntranceLog } from "~/components/area/gamelog/areaEntranceLog";
 import { useCallback, useEffect, useState } from "react";
 import { useItemTouch } from "~/components/items/useItemTouch";
+import { useItemsStore } from "~/components/items/ItemsStoreContext";
 
 type LoaderType = {
   area: Area;
@@ -67,6 +68,7 @@ const AreaRouteInner: React.VFC<{
 };
 
 function useAreaRouteLogic(areaFromServer: Area) {
+  const { items } = useItemsStore();
   const [clientModifiedMap, setClientModifiedMap] = useState<{
     areaId: string;
     map: AreaMap;
@@ -95,7 +97,7 @@ function useAreaRouteLogic(areaFromServer: Area) {
     map,
     areaIsLoading,
   });
-  useAreaTransition({ area: areaFromServer, player, setPlayerPosition });
+  useAreaTransition({ area: areaFromServer, player, items, setPlayerPosition });
   useAreaEntranceLog(areaFromServer);
   const updateMap = useCallback((x: number, y: number, land: number) => {
     setClientModifiedMap((map) => {

@@ -11,9 +11,11 @@ import React, {
 import { ItemType, itemTypes } from "~/logic/item/itemDef";
 
 type ItemsStore = {
-  items: Map<ItemType, number>;
+  items: ItemMap;
   addItem: (itemType: ItemType, itemNum: number) => void;
 };
+
+export type ItemMap = Map<ItemType, number>;
 
 const ItemsStoreContext = createContext<ItemsStore>({
   items: new Map(),
