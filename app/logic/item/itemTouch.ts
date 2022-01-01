@@ -258,6 +258,21 @@ export function touchItem({
       addLog(`You drunk 🩸 and became a 🧛!`);
       break;
     }
+    case landDef.mage: {
+      if (getItem("vampire")) {
+        addItem("blood", 1);
+        addLog("You sucked 🩸 from 🧙!");
+        break;
+      }
+      const blood = clearItem("blood");
+      if (blood === 0) {
+        addLog("🧙: You have no 🩸!");
+        break;
+      }
+      addItem("sparkle", blood * 10);
+      addLog(`🧙 converted ${blood} 🩸s into ${blood * 10} ✨s!`);
+      break;
+    }
   }
 
   function clearItem(itemType: ItemType): number {

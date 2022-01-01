@@ -110,4 +110,5 @@ const itemRandomListLevel3 = [
   landDef.scissors,
   landDef.departmentStore,
   landDef.blood,
+  landDef.mage,
 ];
