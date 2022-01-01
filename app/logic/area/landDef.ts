@@ -15,6 +15,9 @@ export const landDef = {
   mu: 32,
   moneyBag: 33,
   nightMarket: 34,
+  pig: 35,
+  sheep: 36,
+  rooster: 37,
 };
 
 export const landChars: Record<number, string | undefined> = {
@@ -31,6 +34,9 @@ export const landChars: Record<number, string | undefined> = {
   [landDef.mu]: "🈚️",
   [landDef.moneyBag]: "💰",
   [landDef.nightMarket]: "🌃",
+  [landDef.pig]: "🐖",
+  [landDef.sheep]: "🐑",
+  [landDef.rooster]: "🐓",
 };
 
 export function isWall(land: number): boolean {

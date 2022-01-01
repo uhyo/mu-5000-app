@@ -37,5 +37,20 @@ export function touchItem({
         );
       }
     }
+    case landDef.pig: {
+      addItem("pig", 1);
+      addLog("You caught a 🐖!");
+      break;
+    }
+    case landDef.sheep: {
+      addItem("sheep", 1);
+      addLog("You caught a 🐑!");
+      break;
+    }
+    case landDef.rooster: {
+      addItem("rooster", 1);
+      addLog("You caught a 🐓!");
+      break;
+    }
   }
 }
