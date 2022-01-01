@@ -27,6 +27,8 @@ export const landDef = {
   robot: 44,
   farmer: 45,
   scissors: 46,
+  departmentStore: 47,
+  blood: 48,
 };
 
 export const landChars: Record<number, string | undefined> = {
@@ -55,6 +57,8 @@ export const landChars: Record<number, string | undefined> = {
   [landDef.robot]: "🤖",
   [landDef.farmer]: "🧑‍🌾",
   [landDef.scissors]: "✂️",
+  [landDef.departmentStore]: "🏢",
+  [landDef.blood]: "🩸",
 };
 
 export function isWall(land: number): boolean {

@@ -24,6 +24,12 @@ export function touchItem({
       addLog("You found a 💰!");
       break;
     case landDef.nightMarket: {
+      if (getItem("vampire")) {
+        const blood = Math.floor(Math.random() * 5) + 1;
+        addItem("blood", blood);
+        addLog(`You attacked 🌃 and got ${blood} 🩸s!`);
+        break;
+      }
       const moneyBags = clearItem("moneyBag");
       if (moneyBags > 0) {
         addItem("mu", moneyBags * 10);
@@ -99,6 +105,10 @@ export function touchItem({
         addLog("You beated a 🧟 and got a 🪓!");
         break;
       }
+      if (getItem("vampire")) {
+        addLog("🧟: Hello!");
+        break;
+      }
       const meat = clearItem("meat");
       if (meat === 0) {
         addLog("🧟 Ouch!");
@@ -139,6 +149,12 @@ export function touchItem({
       break;
     }
     case landDef.kid: {
+      if (getItem("vampire")) {
+        addItem("blood", 1);
+        addLog("You sucked 🩸 from 👦!");
+        break;
+      }
+
       const santaClaus = getItem("santaClaus");
       if (santaClaus > 0) {
         // You are Santa now
@@ -168,6 +184,11 @@ export function touchItem({
       break;
     }
     case landDef.farmer: {
+      if (getItem("vampire")) {
+        addItem("blood", 1);
+        addLog("You sucked 🩸 from 🧑‍🌾!");
+        break;
+      }
       const pigs = getItem("pig");
       const sheeps = getItem("sheep");
       const roosters = getItem("rooster");
@@ -206,6 +227,37 @@ export function touchItem({
       addLog(`✂️ You opened ${gifts} 🎁s and got ${gifts * randomFactor} 🈚s!`);
       break;
     }
+    case landDef.departmentStore: {
+      if (getItem("vampire")) {
+        const blood = Math.floor(Math.random() * 10) + 1;
+        addItem("blood", blood);
+        addLog(`You attacked 🏢 and got ${blood} 🩸s!`);
+        break;
+      }
+      const moneyBags = clearItem("moneyBag");
+      if (moneyBags === 0) {
+        addLog("🏢Department Store: you have no 💰!");
+        break;
+      }
+      addItem("gift", moneyBags * 5);
+      addLog(
+        `🏢Department Store: you used up ${moneyBags} 💰s to buy ${
+          moneyBags * 5
+        } 🎁s!`
+      );
+      break;
+    }
+    case landDef.blood: {
+      if (getItem("vampire")) {
+        addItem("blood", 1);
+        addLog("You picked up 🩸!");
+        break;
+      }
+      clearHats();
+      addItem("vampire", 1);
+      addLog(`You drunk 🩸 and became a 🧛!`);
+      break;
+    }
   }
 
   function clearItem(itemType: ItemType): number {
@@ -217,5 +269,6 @@ export function touchItem({
   function clearHats() {
     clearItem("santaClaus");
     clearItem("police");
+    clearItem("vampire");
   }
 }

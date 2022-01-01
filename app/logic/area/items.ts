@@ -73,7 +73,7 @@ const itemRandomListLevel1 = [
 
 const itemRandomListLevel2 = [
   landDef.mu,
-  landDef.gift,
+  landDef.mu,
   landDef.gift,
   landDef.gift,
   landDef.gift,
@@ -87,7 +87,6 @@ const itemRandomListLevel2 = [
   landDef.zombie,
   landDef.zombie,
   landDef.toilet,
-  landDef.hat,
   landDef.hat,
   landDef.hat,
   landDef.robot,
@@ -109,4 +108,6 @@ const itemRandomListLevel3 = [
   landDef.farmer,
   landDef.farmer,
   landDef.scissors,
+  landDef.departmentStore,
+  landDef.blood,
 ];

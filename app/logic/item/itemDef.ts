@@ -12,6 +12,8 @@ export const itemTypes = [
   "police",
   "axe",
   "gear",
+  "vampire",
+  "blood",
 ] as const;
 
 export type ItemType = typeof itemTypes[number];
@@ -30,4 +32,6 @@ export const itemNames: Record<ItemType, string> = {
   police: "👮",
   axe: "🪓",
   gear: "⚙️",
+  vampire: "🧛",
+  blood: "🩸",
 };

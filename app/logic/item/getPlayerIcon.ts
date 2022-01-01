@@ -7,5 +7,8 @@ export function getPlayerIcon(items: ItemMap): string {
   if (items.get("police")) {
     return "👮";
   }
+  if (items.get("vampire")) {
+    return "🧛";
+  }
   return "🏃";
 }
