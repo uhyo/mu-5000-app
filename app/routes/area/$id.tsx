@@ -2,6 +2,10 @@
 
 import { CSSProperties, useEffect, useRef } from "react";
 import { LinksFunction, Outlet } from "remix";
+import {
+  ControlPad,
+  links as controlPadLinks,
+} from "~/components/control/ControlPad";
 import { Items } from "~/components/items/Items";
 import { ItemsStoreProvider } from "~/components/items/ItemsStoreContext";
 import { Logs } from "~/components/logs/Logs";
@@ -10,6 +14,7 @@ import { mapSize } from "~/logic/area/params";
 import styles from "~/styles/routes/area/$id.css";
 
 export const links: LinksFunction = () => [
+  ...controlPadLinks(),
   { rel: "stylesheet", href: styles },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
@@ -73,6 +78,9 @@ const AreaLayoutInner: React.VFC = () => {
       </div>
       <div className="area-layout-item">
         <Items />
+      </div>
+      <div className="area-layout-input">
+        <ControlPad />
       </div>
     </div>
   );

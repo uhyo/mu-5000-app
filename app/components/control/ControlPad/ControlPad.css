@@ -1,0 +1,22 @@
+.control-pad {
+  border-radius: 100%;
+  background-color: #3b88c3;
+  width: var(--pad-size);
+  height: var(--pad-size);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.control-pad-button {
+  appearance: none;
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.control-pad-button .emoji {
+  width: 32px;
+  height: 32px;
+}

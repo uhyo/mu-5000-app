@@ -5,6 +5,7 @@
   grid-template: "game logs" calc(
     var(--cell-size) * var(--map-size) + var(--cell-gap) * (var(--map-size) - 1)
   ) "item item" auto
+    "input input" auto
    / auto 1fr;
   gap: 4px;
 }
@@ -52,4 +53,10 @@
   width: 20px;
   height: 20px;
   vertical-align: text-bottom;
+}
+
+.area-layout-input {
+  grid-area: input;
+  width: max-content;
+  justify-self: center;
 }
