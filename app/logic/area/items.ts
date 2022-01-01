@@ -30,7 +30,9 @@ export function addRandomItems(
       ? itemRandomListLevel1
       : areaIdNum <= 0x1fff
       ? itemRandomListLevel2
-      : itemRandomListLevel3;
+      : areaIdNum <= 0x3fff
+      ? itemRandomListLevel3
+      : itemRandomListLevel4;
 
   const itemCount = ((itemCountRnd >>> 8) & 0xff) % 6;
   for (const _ of range(0, itemCount)) {
@@ -111,4 +113,22 @@ const itemRandomListLevel3 = [
   landDef.departmentStore,
   landDef.blood,
   landDef.mage,
+];
+
+const itemRandomListLevel4 = [
+  landDef.mu,
+  landDef.mu,
+  landDef.mu,
+  landDef.soap,
+  landDef.soap,
+  landDef.zombie,
+  landDef.zombie,
+  landDef.fire,
+  landDef.hat,
+  landDef.farmer,
+  landDef.departmentStore,
+  landDef.blood,
+  landDef.mage,
+  landDef.bathtub,
+  landDef.mechanic,
 ];

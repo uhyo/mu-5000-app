@@ -101,6 +101,8 @@ function getNextArea(items: ItemMap, nextAreaId: string) {
     next &= 0x1fff;
   } else if (sparkle < 1000) {
     next &= 0x3fff;
+  } else if (sparkle < 2000) {
+    next &= 0x7fff;
   }
   return next.toString(16).padStart(4, "0");
 }

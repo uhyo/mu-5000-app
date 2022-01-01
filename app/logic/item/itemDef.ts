@@ -1,12 +1,12 @@
 export const itemTypes = [
   "mu",
+  "sparkle",
   "moneyBag",
   "pig",
   "sheep",
   "rooster",
   "meat",
   "poop",
-  "sparkle",
   "gift",
   "santaClaus",
   "police",
@@ -14,6 +14,9 @@ export const itemTypes = [
   "gear",
   "vampire",
   "blood",
+  "soap",
+  "water",
+  "slotMachine",
 ] as const;
 
 export type ItemType = typeof itemTypes[number];
@@ -34,4 +37,7 @@ export const itemNames: Record<ItemType, string> = {
   gear: "⚙️",
   vampire: "🧛",
   blood: "🩸",
+  soap: "🧼",
+  water: "💧",
+  slotMachine: "🎰",
 };

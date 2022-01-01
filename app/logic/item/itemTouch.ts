@@ -119,6 +119,14 @@ export function touchItem({
       break;
     }
     case landDef.toilet: {
+      const soap = clearItem("soap");
+      if (soap > 0) {
+        addItem("sparkle", soap * 8);
+        addLog(
+          ` You used up ${soap} 🧼s to clean 🚽 and produced ${soap * 8} ✨s!`
+        );
+        break;
+      }
       const poop = clearItem("poop");
       if (poop === 0) {
         addLog("🚽 You got some rest.");
@@ -271,6 +279,46 @@ export function touchItem({
       }
       addItem("sparkle", blood * 10);
       addLog(`🧙 converted ${blood} 🩸s into ${blood * 10} ✨s!`);
+      break;
+    }
+    case landDef.soap: {
+      addItem("soap", 1);
+      addLog("You found a 🧼!");
+      break;
+    }
+    case landDef.bathtub: {
+      const soap = clearItem("soap");
+      if (soap === 0) {
+        addLog("🛁: You have no 🧼!");
+        break;
+      }
+      const blood = clearItem("blood");
+      if (blood === 0) {
+        addItem("sparkle", soap * 3);
+        addLog(`🛁 You used ${soap} 🧼s and got ${soap * 3} ✨s!`);
+        break;
+      }
+      addItem("water", blood * soap);
+      addLog(
+        `🛁 You cleaned ${blood} 🩸s with ${soap} 🧼s and got ${
+          blood * soap
+        } 💧s!`
+      );
+    }
+    case landDef.mechanic: {
+      if (getItem("vampire")) {
+        addItem("blood", 1);
+        addLog("You sucked 🩸 from 🧑‍🔧!");
+        break;
+      }
+      const gears = getItem("gear");
+      if (gears < 10) {
+        addLog("🧑‍🔧: I need 10 ⚙️s!");
+        break;
+      }
+      addItem("gear", -10);
+      addItem("slotMachine", 1);
+      addLog(`🧑‍🔧 created a 🎰 from 10 ⚙️s for you!`);
       break;
     }
   }
