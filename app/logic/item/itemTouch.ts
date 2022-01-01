@@ -197,6 +197,14 @@ export function touchItem({
         addLog("You sucked 🩸 from 🧑‍🌾!");
         break;
       }
+      const seedings = getItem("seeding");
+      if (seedings > 0) {
+        addItem("seeding", -1);
+        addItem("sparkle", 150);
+        addLog(`🧑‍🌾: You planted a 🌱 and received 150 ✨s!`);
+        break;
+      }
+
       const pigs = getItem("pig");
       const sheeps = getItem("sheep");
       const roosters = getItem("rooster");

@@ -124,6 +124,8 @@ const itemRandomListLevel4 = [
   landDef.zombie,
   landDef.zombie,
   landDef.fire,
+  landDef.toilet,
+  landDef.hat,
   landDef.hat,
   landDef.farmer,
   landDef.departmentStore,
