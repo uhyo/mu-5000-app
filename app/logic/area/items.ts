@@ -19,7 +19,7 @@ export function addRandomItems(map: number[][], rng: Rng, edges: Edge) {
     map[y][x] = landDef[edges.default];
   }
 
-  const itemCount = ((itemCountRnd >>> 8) & 0xff) % 4;
+  const itemCount = ((itemCountRnd >>> 8) & 0xff) % 6;
   for (const _ of range(0, itemCount)) {
     const x = Math.floor(rng.double() * insetAreaSize) + 1;
     const y = Math.floor(rng.double() * insetAreaSize) + 1;
@@ -54,4 +54,5 @@ const itemRandomList = [
   landDef.nightMarket,
   landDef.zombie,
   landDef.zombie,
+  landDef.toilet,
 ];

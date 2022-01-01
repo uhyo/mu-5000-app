@@ -89,5 +89,16 @@ export function touchItem({
       }
       break;
     }
+    case landDef.toilet: {
+      const poop = getItem("poop");
+      if (poop === 0) {
+        addLog("🚽 You got some rest.");
+      } else {
+        addItem("poop", -poop);
+        addItem("sparkle", poop);
+        addLog(`🚽 You cleaned ${poop} 💩s to get ${poop} ✨s!`);
+      }
+      break;
+    }
   }
 }
