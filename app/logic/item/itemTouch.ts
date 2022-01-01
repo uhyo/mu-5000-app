@@ -30,6 +30,12 @@ export function touchItem({
         addLog(`You attacked 🌃 and got ${blood} 🩸s!`);
         break;
       }
+      const gems = clearItem("gem");
+      if (gems > 0) {
+        addItem("mu", gems * 30);
+        addLog(`🌃 Nightmarket: you sold ${gems} 💎s for ${gems * 30} 🈚️s!`);
+        break;
+      }
       const moneyBags = clearItem("moneyBag");
       if (moneyBags > 0) {
         addItem("mu", moneyBags * 10);
@@ -329,6 +335,7 @@ export function touchItem({
           blood * soap
         } 💧s!`
       );
+      break;
     }
     case landDef.mechanic: {
       if (getItem("vampire")) {
@@ -381,6 +388,37 @@ export function touchItem({
       }
       addItem("document", sa);
       addLog(`🧑‍💼 produced ${sa} 📄s from ${sa} 🈂️s.`);
+      break;
+    }
+    case landDef.postOffice: {
+      if (getItem("vampire")) {
+        const blood = Math.floor(Math.random() * 10) + 5;
+        addItem("blood", blood);
+        addLog(`You attacked 🏣 and got ${blood} 🩸s!`);
+        break;
+      }
+      const envelopes = clearItem("envelope");
+      if (envelopes === 0) {
+        addLog("🏣: you have no ✉️s!");
+        break;
+      }
+      addItem("mu", envelopes * 30);
+      addLog(
+        `🏣: you posted ${envelopes} ✉️s and got ${
+          envelopes * 30
+        } 🈚️s instead!`
+      );
+      break;
+    }
+    case landDef.elf: {
+      const scrolls = clearItem("scroll");
+      if (scrolls > 0) {
+        addItem("gem", scrolls);
+        addLog(`🧝🏻‍♀️ read ${scrolls} 📜s and generated ${scrolls} 💎s!`);
+        break;
+      }
+      addLog("🧝🏻‍♀️: Hello!");
+      break;
     }
   }
 

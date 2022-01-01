@@ -22,6 +22,7 @@ export const itemTypes = [
   "document",
   "scroll",
   "envelope",
+  "gem",
 ] as const;
 
 export type ItemType = typeof itemTypes[number];
@@ -50,4 +51,5 @@ export const itemNames: Record<ItemType, string> = {
   document: "📄",
   scroll: "📜",
   envelope: "✉️",
+  gem: "💎",
 };
