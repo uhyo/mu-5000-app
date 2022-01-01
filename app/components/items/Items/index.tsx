@@ -24,7 +24,7 @@ export const Items: React.VFC = () => {
         return (
           <div key={itemType}>
             <Twemoji wrapper="span">{itemChar}</Twemoji>{" "}
-            {String(Math.min(itemNum, 9999)).padStart(4, "0")}
+            {String(itemNum).padStart(4, "0")}
           </div>
         );
       })}

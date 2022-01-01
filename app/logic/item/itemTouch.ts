@@ -49,6 +49,7 @@ export function touchItem({
         break;
       }
       addLog("🌃 Nightmarket: you don't have any 💰!");
+      break;
     }
     case landDef.pig: {
       addItem("pig", 1);
@@ -328,6 +329,17 @@ export function touchItem({
       addItem("gear", -10);
       addItem("slotMachine", 1);
       addLog(`🧑‍🔧 created a 🎰 from 10 ⚙️s for you!`);
+      break;
+    }
+    case landDef.desert: {
+      const water = getItem("water");
+      if (water < 100) {
+        addLog("🏜Desert: you need 100 💧s for greening!");
+        break;
+      }
+      addItem("water", -100);
+      addItem("seeding", 1);
+      addLog("🏜Desert: you used 100 💧s to grow a 🌱!");
       break;
     }
   }

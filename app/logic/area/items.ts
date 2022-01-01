@@ -34,7 +34,7 @@ export function addRandomItems(
       ? itemRandomListLevel3
       : itemRandomListLevel4;
 
-  const itemCount = ((itemCountRnd >>> 8) & 0xff) % 6;
+  const itemCount = (((itemCountRnd >>> 8) & 0xff) % 6) + 1;
   for (const _ of range(0, itemCount)) {
     const x = Math.floor(rng.double() * insetAreaSize) + 1;
     const y = Math.floor(rng.double() * insetAreaSize) + 1;
