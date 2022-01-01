@@ -35,6 +35,7 @@ export const landDef = {
   mechanic: 52,
   desert: 53,
   sa: 54,
+  officeWorker: 55,
 };
 
 export const landChars: Record<number, string | undefined> = {
@@ -71,6 +72,7 @@ export const landChars: Record<number, string | undefined> = {
   [landDef.mechanic]: "🧑‍🔧",
   [landDef.desert]: "🏜️",
   [landDef.sa]: "🈂️",
+  [landDef.officeWorker]: "🧑‍💼",
 };
 
 export function isWall(land: number): boolean {

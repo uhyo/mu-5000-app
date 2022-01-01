@@ -151,4 +151,8 @@ const itemRandomListLevel5 = [
   landDef.sa,
   landDef.sa,
   landDef.blood,
+  landDef.officeWorker,
+  landDef.officeWorker,
+  landDef.zombie,
+  landDef.mechanic,
 ];

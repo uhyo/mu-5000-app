@@ -19,6 +19,9 @@ export const itemTypes = [
   "slotMachine",
   "seeding",
   "sa",
+  "document",
+  "scroll",
+  "envelope",
 ] as const;
 
 export type ItemType = typeof itemTypes[number];
@@ -44,4 +47,7 @@ export const itemNames: Record<ItemType, string> = {
   slotMachine: "🎰",
   seeding: "🌱",
   sa: "🈂️",
+  document: "📄",
+  scroll: "📜",
+  envelope: "✉️",
 };

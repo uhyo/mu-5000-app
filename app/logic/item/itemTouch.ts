@@ -234,14 +234,15 @@ export function touchItem({
     }
     case landDef.scissors: {
       const gifts = clearItem("gift");
-      if (gifts === 0) {
-        addLog("✂️ You have nothing to cut.");
+      if (gifts > 0) {
+        const randomFactor = Math.floor(Math.random() * 3) + 8;
+        addItem("mu", gifts * randomFactor);
+        addLog(
+          `✂️ You opened ${gifts} 🎁s and got ${gifts * randomFactor} 🈚s!`
+        );
         break;
       }
-      const randomFactor = Math.floor(Math.random() * 3) + 8;
-      addItem("mu", gifts * randomFactor);
-      addLog(`✂️ You opened ${gifts} 🎁s and got ${gifts * randomFactor} 🈚s!`);
-      break;
+      addLog("✂️ You have nothing to cut.");
     }
     case landDef.departmentStore: {
       if (getItem("vampire")) {
@@ -290,6 +291,12 @@ export function touchItem({
         addLog("You sucked 🩸 from 🧙!");
         break;
       }
+      const documents = clearItem("document");
+      if (documents > 0) {
+        addItem("scroll", documents);
+        addLog(`🧙 converted ${documents} 📄s into ${documents} 📜s!`);
+        break;
+      }
       const blood = clearItem("blood");
       if (blood === 0) {
         addLog("🧙: You have no 🩸!");
@@ -329,6 +336,12 @@ export function touchItem({
         addLog("You sucked 🩸 from 🧑‍🔧!");
         break;
       }
+      const documents = clearItem("document");
+      if (documents > 0) {
+        addItem("envelope", documents);
+        addLog(`🧑‍🔧 received ${documents} 📄s and wrote ${documents} ✉️s!`);
+        break;
+      }
       const gears = getItem("gear");
       if (gears < 10) {
         addLog("🧑‍🔧: I need 10 ⚙️s!");
@@ -354,6 +367,20 @@ export function touchItem({
       addItem("sa", 1);
       addLog("You found a 🈂️!");
       break;
+    }
+    case landDef.officeWorker: {
+      if (getItem("vampire")) {
+        addItem("blood", 1);
+        addLog("You sucked 🩸 from 🧑‍💼!");
+        break;
+      }
+      const sa = clearItem("sa");
+      if (sa === 0) {
+        addLog("🧑‍💼: You need 🈂️s to have them work!");
+        break;
+      }
+      addItem("document", sa);
+      addLog(`🧑‍💼 produced ${sa} 📄s from ${sa} 🈂️s.`);
     }
   }
 
