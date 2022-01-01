@@ -64,6 +64,7 @@ const itemRandomListLevel1 = [
   landDef.zombie,
   landDef.zombie,
   landDef.toilet,
+  landDef.kid,
 ];
 
 const itemRandomListLevel2 = [

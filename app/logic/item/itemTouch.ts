@@ -111,5 +111,23 @@ export function touchItem({
       addLog("🎩 You got a Santa Claus hat!");
       break;
     }
+    case landDef.kid: {
+      const santaClaus = getItem("santaClaus");
+      if (santaClaus > 0) {
+        // You are Santa now
+        addItem("santaClaus", -santaClaus);
+        const gift = getItem("gift");
+        if (gift > 0) {
+          addItem("gift", -gift);
+          addItem("sparkle", gift * 5);
+          addLog(`🎅 You gave ${gift} 🎁s to 👦 and got ${gift * 5} ✨s!`);
+        } else {
+          addLog("🎅 You don't have any 🎁s!");
+        }
+      } else {
+        addLog("👦: Hello!");
+      }
+      break;
+    }
   }
 }
