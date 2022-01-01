@@ -52,4 +52,6 @@ const itemRandomList = [
   landDef.rooster,
   landDef.fire,
   landDef.nightMarket,
+  landDef.zombie,
+  landDef.zombie,
 ];

@@ -78,5 +78,16 @@ export function touchItem({
       }
       break;
     }
+    case landDef.zombie: {
+      const meat = getItem("meat");
+      if (meat === 0) {
+        addLog("🧟 Ouch!");
+      } else {
+        addItem("meat", -meat);
+        addItem("poop", meat);
+        addLog(`️You gave ${meat} 🍖s to 🧟 and got ${meat} 💩s!`);
+      }
+      break;
+    }
   }
 }
