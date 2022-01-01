@@ -163,10 +163,9 @@ export function touchItem({
         break;
       }
 
-      const santaClaus = getItem("santaClaus");
+      const santaClaus = clearItem("santaClaus");
       if (santaClaus > 0) {
         // You are Santa now
-        addItem("santaClaus", -santaClaus);
         const gift = clearItem("gift");
         if (gift > 0) {
           addItem("sparkle", gift * 5);
@@ -242,6 +241,16 @@ export function touchItem({
         addLog(`You attacked 🏢 and got ${blood} 🩸s!`);
         break;
       }
+      const slotMachines = clearItem("slotMachine");
+      if (slotMachines > 0) {
+        addItem("moneyBag", slotMachines * 100);
+        addLog(
+          `You sold ${slotMachines} 🎰s at 🏢Department Store and got ${
+            slotMachines * 50
+          } 💰s!`
+        );
+        break;
+      }
       const moneyBags = clearItem("moneyBag");
       if (moneyBags === 0) {
         addLog("🏢Department Store: you have no 💰!");
@@ -249,7 +258,7 @@ export function touchItem({
       }
       addItem("gift", moneyBags * 5);
       addLog(
-        `🏢Department Store: you used up ${moneyBags} 💰s to buy ${
+        `🏢Department Store: you spent ${moneyBags} 💰s to buy ${
           moneyBags * 5
         } 🎁s!`
       );

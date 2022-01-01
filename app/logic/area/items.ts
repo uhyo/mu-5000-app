@@ -131,4 +131,5 @@ const itemRandomListLevel4 = [
   landDef.mage,
   landDef.bathtub,
   landDef.mechanic,
+  landDef.desert,
 ];
