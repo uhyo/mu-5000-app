@@ -11,13 +11,14 @@ export function useItemTouch(
   player: PlayerInfo,
   updateMap: (x: number, y: number, land: number) => void
 ) {
-  const { addItem } = useItemsStore();
+  const { items, addItem } = useItemsStore();
   const { addLog } = useLogs();
   const mapChip = map[player.y][player.x];
   useEffect(() => {
     if (isItem(mapChip)) {
       touchItem({
         mapItem: mapChip,
+        getItem: (itemType) => items.get(itemType) || 0,
         addItem,
         addLog,
       });

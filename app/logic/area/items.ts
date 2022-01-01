@@ -28,4 +28,26 @@ export function addRandomItems(map: number[][], rng: Rng, edges: Edge) {
   }
 }
 
-const itemRandomList = [landDef.moneyBag, landDef.mu];
+const itemRandomList = [
+  landDef.mu,
+  landDef.mu,
+  landDef.mu,
+  landDef.mu,
+  landDef.mu,
+  landDef.mu,
+  landDef.mu,
+  landDef.mu,
+  landDef.mu,
+  landDef.mu,
+  landDef.moneyBag,
+  landDef.moneyBag,
+  landDef.moneyBag,
+  landDef.moneyBag,
+  landDef.moneyBag,
+  landDef.moneyBag,
+  landDef.moneyBag,
+  landDef.moneyBag,
+  landDef.moneyBag,
+  landDef.moneyBag,
+  landDef.nightMarket,
+];
