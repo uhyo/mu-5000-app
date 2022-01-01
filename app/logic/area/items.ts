@@ -81,6 +81,10 @@ const itemRandomListLevel2 = [
   landDef.fire,
   landDef.zombie,
   landDef.zombie,
+  landDef.zombie,
   landDef.toilet,
   landDef.hat,
+  landDef.hat,
+  landDef.hat,
+  landDef.robot,
 ];

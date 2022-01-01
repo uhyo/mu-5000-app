@@ -24,11 +24,10 @@ export function touchItem({
       addLog("You found a 💰!");
       break;
     case landDef.nightMarket: {
-      const moneyBags = getItem("moneyBag");
+      const moneyBags = clearItem("moneyBag");
       if (moneyBags === 0) {
         addLog("🌃 Nightmarket: you don't have any 💰!");
       } else {
-        addItem("moneyBag", -moneyBags);
         addItem("mu", moneyBags * 10);
         addLog(
           `🌃 Nightmarket: you used up ${moneyBags} 💰s and bought ${
@@ -53,6 +52,12 @@ export function touchItem({
       break;
     }
     case landDef.fire: {
+      const axes = clearItem("axe");
+      if (axes > 0) {
+        addItem("gear", axes);
+        addLog(`🔥 You used up ${axes} 🪓s and crafted ${axes} ⚙️s!`);
+        break;
+      }
       const pigs = getItem("pig");
       const sheeps = getItem("sheep");
       const roosters = getItem("rooster");
@@ -79,22 +84,27 @@ export function touchItem({
       break;
     }
     case landDef.zombie: {
-      const meat = getItem("meat");
+      const police = getItem("police");
+      if (police) {
+        // You are a police now!
+        addItem("axe", 1);
+        addLog("You beated a 🧟 and got a 🪓!");
+        break;
+      }
+      const meat = clearItem("meat");
       if (meat === 0) {
         addLog("🧟 Ouch!");
       } else {
-        addItem("meat", -meat);
         addItem("poop", meat);
         addLog(`️You gave ${meat} 🍖s to 🧟 and got ${meat} 💩s!`);
       }
       break;
     }
     case landDef.toilet: {
-      const poop = getItem("poop");
+      const poop = clearItem("poop");
       if (poop === 0) {
         addLog("🚽 You got some rest.");
       } else {
-        addItem("poop", -poop);
         addItem("sparkle", poop);
         addLog(`🚽 You cleaned ${poop} 💩s to get ${poop} ✨s!`);
       }
@@ -106,9 +116,18 @@ export function touchItem({
       break;
     }
     case landDef.hat: {
-      // TODO: add more transformations
-      addItem("santaClaus", 1);
-      addLog("🎩 You got a Santa Claus hat!");
+      clearHats();
+      const hats = ["santaClaus", "police"] as const;
+      const hat = hats[Math.floor(Math.random() * hats.length)];
+      addItem(hat, 1);
+      switch (hat) {
+        case "santaClaus":
+          addLog("🎩 You got a Santa Claus hat!");
+          break;
+        case "police":
+          addLog("🎩 You got a Police hat!");
+          break;
+      }
       break;
     }
     case landDef.kid: {
@@ -116,9 +135,8 @@ export function touchItem({
       if (santaClaus > 0) {
         // You are Santa now
         addItem("santaClaus", -santaClaus);
-        const gift = getItem("gift");
+        const gift = clearItem("gift");
         if (gift > 0) {
-          addItem("gift", -gift);
           addItem("sparkle", gift * 5);
           addLog(`🎅 You gave ${gift} 🎁s to 👦 and got ${gift * 5} ✨s!`);
         } else {
@@ -129,5 +147,28 @@ export function touchItem({
       }
       break;
     }
+    case landDef.robot: {
+      const gears = clearItem("gear");
+      if (gears === 0) {
+        addLog("🤖 does not respond.");
+        break;
+      }
+      addItem("sparkle", gears * 10);
+      addLog(
+        `You used up ${gears} ⚙️s and repaired 🤖. You got ${gears * 10} ✨s!`
+      );
+      break;
+    }
+  }
+
+  function clearItem(itemType: ItemType): number {
+    const itemNum = getItem(itemType);
+    addItem(itemType, -itemNum);
+    return itemNum;
+  }
+
+  function clearHats() {
+    clearItem("santaClaus");
+    clearItem("police");
   }
 }
