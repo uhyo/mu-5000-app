@@ -52,5 +52,31 @@ export function touchItem({
       addLog("You caught a 🐓!");
       break;
     }
+    case landDef.fire: {
+      const pigs = getItem("pig");
+      const sheeps = getItem("sheep");
+      const roosters = getItem("rooster");
+      if (pigs === 0 && sheeps === 0 && roosters === 0) {
+        addLog("🔥 Ouch!");
+        break;
+      }
+      if (pigs >= sheeps && pigs >= roosters) {
+        // cook pigs to get meat
+        addItem("meat", pigs);
+        addItem("pig", -pigs);
+        addLog(`🔥 You cooked ${pigs} 🐖s to get ${pigs} 🍖s!`);
+      } else if (sheeps >= pigs && sheeps >= roosters) {
+        // cook sheeps to get meat
+        addItem("meat", sheeps);
+        addItem("sheep", -sheeps);
+        addLog(`🔥 You cooked ${sheeps} 🐑s to get ${sheeps} 🍖s!`);
+      } else {
+        // cook roosters to get meat
+        addItem("meat", roosters);
+        addItem("rooster", -roosters);
+        addLog(`🔥 You cooked ${roosters} 🐓s to get ${roosters} 🍖s!`);
+      }
+      break;
+    }
   }
 }

@@ -18,6 +18,7 @@ export const landDef = {
   pig: 35,
   sheep: 36,
   rooster: 37,
+  fire: 38,
 };
 
 export const landChars: Record<number, string | undefined> = {
@@ -37,6 +38,7 @@ export const landChars: Record<number, string | undefined> = {
   [landDef.pig]: "🐖",
   [landDef.sheep]: "🐑",
   [landDef.rooster]: "🐓",
+  [landDef.fire]: "🔥",
 };
 
 export function isWall(land: number): boolean {
