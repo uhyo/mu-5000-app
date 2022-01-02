@@ -10,7 +10,7 @@ export const Items: React.VFC = () => {
       style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fill, 10ch)",
-        gridTemplateRows: "repeat(4, minmax(1em, auto))",
+        gridTemplateRows: "repeat(2, minmax(1em, auto))",
         padding: "2px",
         gap: "2px",
       }}

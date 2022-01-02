@@ -36,6 +36,7 @@ export const ControlPad: React.VFC = () => {
     }
   }
   function handlePointerDown(e: React.PointerEvent) {
+    e.preventDefault();
     const prev = pointerIsDown.current;
     pointerIsDown.current = e.pointerId;
     handlePointerState(prev, pointerPosition.current);
@@ -76,6 +77,8 @@ export const ControlPad: React.VFC = () => {
     <Twemoji wrapper="div">
       <div
         onPointerDown={handlePointerDown}
+        onContextMenu={(e) => e.preventDefault()}
+        onTouchStart={(e) => e.preventDefault()}
         className="control-pad"
         style={
           {
