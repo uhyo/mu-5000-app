@@ -6,14 +6,15 @@
   "scripts": {
     "build": "remix build",
     "dev": "remix watch",
-    "postinstall": "remix setup node",
-    "start": "cross-env NODE_ENV=production node server/index.js",
-    "start:dev": "cross-env NODE_ENV=development node server/index.js"
+    "postinstall": "remix setup cloudflare-workers",
+    "build:worker": "esbuild --define:process.env.NODE_ENV='\"production\"' --minify --bundle --sourcemap --outdir=dist ./worker",
+    "dev:worker": "esbuild --define:process.env.NODE_ENV='\"development\"' --bundle --sourcemap --outdir=dist ./worker",
+    "start": "miniflare --build-command \"npm run dev:worker\" --watch",
+    "deploy": "npm run build && wrangler publish"
   },
   "dependencies": {
-    "@remix-run/express": "^1.1.1",
+    "@remix-run/cloudflare-workers": "^1.1.1",
     "@remix-run/react": "^1.1.1",
-    "@remix-run/serve": "^1.1.1",
     "compression": "^1.7.4",
     "eventmit": "^1.1.0",
     "express": "^4.17.2",
@@ -31,11 +32,14 @@
     "@types/react-dom": "^17.0.9",
     "@types/seedrandom": "^3.0.1",
     "@types/twemoji": "^12.1.2",
-    "cross-env": "^7.0.3",
-    "typescript": "^4.1.2"
+    "typescript": "^4.1.2",
+    "@cloudflare/workers-types": "^2.2.2",
+    "esbuild": "0.13.14",
+    "miniflare": "2.0.0-next.3"
   },
   "engines": {
     "node": ">=14"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "main": "dist/worker.js"
 }
