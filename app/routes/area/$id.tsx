@@ -6,6 +6,7 @@ import {
   ControlPad,
   links as controlPadLinks,
 } from "~/components/control/ControlPad";
+import { InputContextProvider } from "~/components/control/InputContext";
 import { Items } from "~/components/items/Items";
 import { ItemsStoreProvider } from "~/components/items/ItemsStoreContext";
 import { Logs } from "~/components/logs/Logs";
@@ -40,7 +41,9 @@ export default function AreaLayout() {
   return (
     <LogsProvider>
       <ItemsStoreProvider>
-        <AreaLayoutInner />
+        <InputContextProvider>
+          <AreaLayoutInner />
+        </InputContextProvider>
       </ItemsStoreProvider>
     </LogsProvider>
   );

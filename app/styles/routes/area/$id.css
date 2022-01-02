@@ -17,7 +17,8 @@
     "game" calc(
     var(--cell-size) * var(--map-size) + var(--cell-gap) * (var(--map-size) - 1)
   )
-    "item" auto / 1fr;
+    "item" auto
+    "input" auto / 1fr;
   }
 }
 

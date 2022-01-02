@@ -28,7 +28,6 @@ export function useAreaTransition({
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(nextPlayerPosition);
     // transition happens once per area
     if (nextPlayerPosition.current !== null) {
       return;

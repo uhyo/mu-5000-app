@@ -3,7 +3,8 @@ import { Area, AreaMap, AreaMinusMap } from "~/logic/area";
 import { isWall } from "~/logic/area/landDef";
 import { mapSize } from "~/logic/area/params";
 import { useAreaTransition } from "../transition/useAreaTransition";
-import { KeyType, useKeyboardInput } from "./useKeyboardInput";
+import { UseKeyboardInput } from "./useKeyboardInput";
+import { KeyType, useRunInput } from "./useRunInput";
 
 export type PlayerInfo = {
   x: number;
@@ -63,7 +64,7 @@ export function usePlayer({
     [map, areaIsLoading]
   );
 
-  useKeyboardInput({ onKeyInput: keyInputHandler });
+  useRunInput({ onKeyInput: keyInputHandler });
 
   return {
     player: playerPosition,

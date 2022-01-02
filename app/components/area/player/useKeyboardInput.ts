@@ -1,38 +1,8 @@
-import { useEffect, useRef } from "react";
-import { useMainLoopCallback } from "../mainloop/useMainLoopCallback";
+import { useEffect } from "react";
+import { useInputContext } from "~/components/control/InputContext";
 
-export type KeyType = "ArrowUp" | "ArrowDown" | "ArrowLeft" | "ArrowRight";
-
-type InstantKeyState = {
-  /**
-   * 0 means not used.
-   * 1 means pressed within last frame.
-   * 2 means released within the same frame.
-   */
-  state: 0 | 1 | 2;
-  keyType: KeyType;
-};
-
-type UseKeyboardInputInput = {
-  onKeyInput: (key: KeyType) => void;
-};
-
-export function useKeyboardInput({ onKeyInput }: UseKeyboardInputInput) {
-  /**
-   * Stack of keys that are currently pressed.
-   * (last one is effective)
-   */
-  const keyStack = useRef<KeyType[]>([]);
-  const instantKey = useRef<InstantKeyState>({ state: 0, keyType: "ArrowUp" });
-
-  useMainLoopCallback(() => {
-    if (instantKey.current.state === 2) {
-      onKeyInput(instantKey.current.keyType);
-    } else if (keyStack.current.length > 0) {
-      onKeyInput(keyStack.current[keyStack.current.length - 1]);
-    }
-    instantKey.current.state = 0;
-  }, [onKeyInput]);
+export function useKeyboardInput() {
+  const { inputUp, inputDown } = useInputContext();
 
   useEffect(() => {
     document.addEventListener("keydown", keydownHandler);
@@ -48,27 +18,23 @@ export function useKeyboardInput({ onKeyInput }: UseKeyboardInputInput) {
         case "ArrowDown":
         case "ArrowLeft":
         case "ArrowRight":
-          if (
-            keyStack.current.length === 0 ||
-            keyStack.current[keyStack.current.length - 1] !== event.key
-          ) {
-            keyStack.current.push(event.key);
-          }
-          instantKey.current.state = 1;
-          instantKey.current.keyType = event.key;
+          inputDown(event.key);
           break;
         default:
           break;
       }
     }
     function keyupHandler(event: KeyboardEvent) {
-      keyStack.current = keyStack.current.filter((key) => key !== event.key);
-      if (
-        instantKey.current.state === 1 &&
-        instantKey.current.keyType === event.key
-      ) {
-        instantKey.current.state = 2;
+      switch (event.key) {
+        case "ArrowUp":
+        case "ArrowDown":
+        case "ArrowLeft":
+        case "ArrowRight":
+          inputUp(event.key);
+          break;
+        default:
+          break;
       }
     }
-  }, [onKeyInput]);
+  }, [inputUp, inputDown]);
 }

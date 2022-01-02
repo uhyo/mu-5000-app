@@ -21,6 +21,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useItemTouch } from "~/components/items/useItemTouch";
 import { useItemsStore } from "~/components/items/ItemsStoreContext";
 import { getPlayerIcon } from "~/logic/item/getPlayerIcon";
+import { useKeyboardInput } from "~/components/area/player/useKeyboardInput";
 
 type LoaderType = {
   area: Area;
@@ -110,6 +111,7 @@ function useAreaRouteLogic(areaFromServer: Area) {
     });
   }, []);
   useItemTouch(map, player, updateMap);
+  useKeyboardInput();
 
   const mapArea = useClientOnly(
     <Twemoji wrapper="div">
