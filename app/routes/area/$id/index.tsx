@@ -1,4 +1,5 @@
 import {
+  json,
   LinksFunction,
   LoaderFunction,
   useLoaderData,
@@ -30,7 +31,7 @@ type LoaderType = {
   area: Area;
 };
 
-export const loader: LoaderFunction = ({ params }): LoaderType => {
+export const loader: LoaderFunction = ({ params }) => {
   if (!params.id) {
     throw new Response("Not Found", {
       status: 404,
@@ -42,7 +43,12 @@ export const loader: LoaderFunction = ({ params }): LoaderType => {
       status: 404,
     });
   }
-  return { area };
+  const responseBody: LoaderType = { area };
+  return json(responseBody, {
+    headers: {
+      "Cache-Control": "public, max-age=360",
+    },
+  });
 };
 
 export const links: LinksFunction = () => [...mapLinks(), ...mapLayoutLinks()];
