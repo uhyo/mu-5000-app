@@ -32,7 +32,7 @@ export function createArea(areaId: string): Area | undefined {
     return undefined;
   }
   const rng = seedrandom(areaId);
-  const edges = generateEdge(rng);
+  const edges = generateEdge(areaId, rng);
   const floor = generateFloor(rng);
   const connections = generateConnections(rng);
   const name = getAreaName(rng, areaId);

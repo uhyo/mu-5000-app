@@ -10,19 +10,24 @@ export function getAreaName(rng: Rng, areaId: string): string {
     case "ffff":
       return "The Eden";
   }
+  const areaIdNum = parseInt(areaId, 16);
 
   // Generate area name
   const areaNameRnd1 = rng.double();
   const areaNameRnd2 = rng.double();
   const areaNameRnd3 = rng.double();
 
-  const areaName =
-    adjectives[Math.floor(areaNameRnd1 * adjectives.length)] +
-    " " +
-    nouns[Math.floor(areaNameRnd2 * nouns.length)] +
-    (areaNameRnd3 < 0.2
+  const adjective =
+    areaIdNum >= 0xfff0
+      ? "The Holy"
+      : adjectives[Math.floor(areaNameRnd1 * adjectives.length)];
+  const noun = nouns[Math.floor(areaNameRnd2 * nouns.length)];
+  const suffix =
+    areaNameRnd3 < 0.2
       ? " " + adverbs[Math.floor(areaNameRnd3 * adverbs.length)]
-      : "");
+      : "";
+
+  const areaName = adjective + " " + noun + suffix;
 
   return areaName;
 }

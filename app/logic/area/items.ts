@@ -34,7 +34,9 @@ export function addRandomItems(
       ? itemRandomListLevel3
       : areaIdNum <= 0x7fff
       ? itemRandomListLevel4
-      : itemRandomListLevel5;
+      : areaIdNum < 0xfff0
+      ? itemRandomListLevel5
+      : itemRandomListEden;
 
   const itemCount = (((itemCountRnd >>> 8) & 0xff) % 6) + 1;
   for (const _ of range(0, itemCount)) {
@@ -158,3 +160,5 @@ const itemRandomListLevel5 = [
   landDef.postOffice,
   landDef.elf,
 ];
+
+const itemRandomListEden = [landDef.gem];

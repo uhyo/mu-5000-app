@@ -11,6 +11,7 @@ export const landDef = {
   snowman: 8,
   ruins: 9,
   barber: 10,
+  cloud: 11,
   // items
   mu: 32,
   moneyBag: 33,
@@ -39,6 +40,7 @@ export const landDef = {
   postOffice: 56,
   elf: 57,
   tada: 58,
+  gem: 59,
 };
 
 export const landChars: Record<number, string | undefined> = {
@@ -52,6 +54,7 @@ export const landChars: Record<number, string | undefined> = {
   [landDef.snowman]: "⛄",
   [landDef.ruins]: "🏚",
   [landDef.barber]: "💈",
+  [landDef.cloud]: "☁️",
   [landDef.mu]: "🈚️",
   [landDef.moneyBag]: "💰",
   [landDef.nightMarket]: "🌃",
@@ -79,10 +82,11 @@ export const landChars: Record<number, string | undefined> = {
   [landDef.postOffice]: "🏣️",
   [landDef.elf]: "🧝",
   [landDef.tada]: "🎉",
+  [landDef.gem]: "💎",
 };
 
 export function isWall(land: number): boolean {
-  return land >= landDef.woods1 && land <= landDef.barber;
+  return land >= landDef.woods1 && land <= landDef.cloud;
 }
 
 export function isItem(land: number): boolean {

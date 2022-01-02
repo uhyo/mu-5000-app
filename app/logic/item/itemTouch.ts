@@ -428,6 +428,11 @@ export function touchItem({
       navigate("ffff");
       break;
     }
+    case landDef.gem: {
+      addItem("gem", 10);
+      addLog("You found 10 💎s!");
+      break;
+    }
   }
 
   function clearItem(itemType: ItemType): number {

@@ -29,7 +29,9 @@ const edgeKindList = [
   "barber", // 💈
 ] as const;
 
-export type EdgeKind = typeof edgeKindList[number];
+type SpecialEdgeKind = "cloud";
+
+export type EdgeKind = typeof edgeKindList[number] | SpecialEdgeKind;
 
 export type EdgeItem =
   | {
@@ -40,7 +42,8 @@ export type EdgeItem =
       hasEdge: false;
     };
 
-export function generateEdge(rng: Rng): Edge {
+export function generateEdge(areaId: string, rng: Rng): Edge {
+  const areaNum = parseInt(areaId, 16);
   const edgeProb = 5; // 5 / 16
   const edgeRand = rng.int32();
   let hasNorthEdge = edgeRand % 16 < edgeProb;
@@ -55,7 +58,10 @@ export function generateEdge(rng: Rng): Edge {
     hasSouthEdge = false;
     hasWestEdge = false;
   }
-  const edgeKind = edgeKindList[(edgeRand >> 16) & 15];
+  const edgeKind =
+    (areaNum & 0xfff0) === 0xfff0
+      ? "cloud"
+      : edgeKindList[(edgeRand >> 16) & 15];
 
   return {
     north: hasNorthEdge
