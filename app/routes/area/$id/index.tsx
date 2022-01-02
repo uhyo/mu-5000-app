@@ -2,6 +2,7 @@ import {
   json,
   LinksFunction,
   LoaderFunction,
+  PrefetchPageLinks,
   useLoaderData,
   useParams,
   useTransition,
@@ -16,7 +17,10 @@ import { useClientOnly } from "~/utils/useClientOnly";
 import { Twemoji } from "~/components/utils/Twemoji";
 import { usePlayer } from "~/components/area/player";
 import { MainLoopProvider } from "~/components/area/mainloop";
-import { useAreaTransition } from "~/components/area/transition/useAreaTransition";
+import {
+  getAreaPath,
+  useAreaTransition,
+} from "~/components/area/transition/useAreaTransition";
 import { useAreaEntranceLog } from "~/components/area/gamelog/areaEntranceLog";
 import { useCallback, useEffect, useState } from "react";
 import { useItemTouch } from "~/components/items/useItemTouch";
@@ -104,11 +108,18 @@ function useAreaRouteLogic(areaFromServer: Area) {
 
   const transition = useTransition();
   const areaIsLoading = transition.state !== "idle";
-  const { player, setPlayerPosition } = usePlayer({
+  const { player, setPlayerPosition, areaPrefetch } = usePlayer({
+    area: areaFromServer,
     map,
     areaIsLoading,
   });
-  useAreaTransition({ area: areaFromServer, player, items, setPlayerPosition });
+  const { prefetchAreaIds } = useAreaTransition({
+    area: areaFromServer,
+    player,
+    items,
+    areaPrefetch,
+    setPlayerPosition,
+  });
   useAreaEntranceLog(areaFromServer);
   const updateMap = useCallback((x: number, y: number, land: number) => {
     setClientModifiedMap((map) => {
@@ -132,6 +143,9 @@ function useAreaRouteLogic(areaFromServer: Area) {
           playerIcon={getPlayerIcon(items)}
         />
       </MapLayout>
+      {prefetchAreaIds.map((areaId) => (
+        <PrefetchPageLinks key={areaId} page={getAreaPath(areaId)} />
+      ))}
     </Twemoji>
   );
 

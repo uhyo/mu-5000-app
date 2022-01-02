@@ -1,24 +1,30 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useNavigate } from "remix";
 import { ItemMap } from "~/components/items/ItemsStoreContext";
 import { AreaMinusMap } from "~/logic/area";
 import { mapSize } from "~/logic/area/params";
 import { getOrElse } from "~/utils/getOrElse";
-import { PlayerInfo } from "../player";
+import { Direction, PlayerInfo } from "../player";
 
 type UseAreaTransitionInput = {
   area: AreaMinusMap;
   player: PlayerInfo;
   items: ItemMap;
+  areaPrefetch: readonly Direction[];
   setPlayerPosition: (position: { x: number; y: number }) => void;
+};
+
+type UseAreaTransitionOutput = {
+  prefetchAreaIds: readonly string[];
 };
 
 export function useAreaTransition({
   area,
   player,
   items,
+  areaPrefetch,
   setPlayerPosition,
-}: UseAreaTransitionInput) {
+}: UseAreaTransitionInput): UseAreaTransitionOutput {
   const nextPlayerPosition = useRef<{
     areaId: string;
     x: number;
@@ -26,6 +32,12 @@ export function useAreaTransition({
   } | null>(null);
 
   const navigate = useNavigate();
+
+  const prefetchAreaIds = useMemo(() => {
+    return areaPrefetch.map((direction) => {
+      return getNextArea(items, area.connections[direction]);
+    });
+  }, [areaPrefetch, area, items]);
 
   useEffect(() => {
     // transition happens once per area
@@ -88,6 +100,10 @@ export function useAreaTransition({
       nextPlayerPosition.current = null;
     }
   }, [area.id, setPlayerPosition]);
+
+  return {
+    prefetchAreaIds,
+  };
 }
 
 function getNextArea(items: ItemMap, nextAreaId: string) {
