@@ -11,10 +11,21 @@ import type { MetaFunction } from "remix";
 import styles from "~/styles/app.css";
 
 export const meta: MetaFunction = () => {
-  return { title: "The 無 Dungeon" };
+  return {
+    title: "The 無 Dungeon",
+    "twitter:card": "summary_large_image",
+    "twitter:creator": "@uhyo_",
+    "og:title": "The 無 Dungeon",
+    "og:description": "Collect 5,000 🈚️s in a random-generated dungeon!",
+    // TODO: make it a full URL
+    "og:image": "/ogp-image.png",
+  };
 };
 
-export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: styles },
+  { rel: "icon", href: "https://twemoji.maxcdn.com/v/13.1.0/72x72/1f21a.png" },
+];
 
 export default function App() {
   return (
