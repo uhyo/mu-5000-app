@@ -1,0 +1,14 @@
+.index-container {
+  text-align: center;
+  line-height: 1.4;
+}
+
+.start-button {
+  font-size: 1.5em;
+  padding: 1.5em 3em;
+  font-weight: bold;
+  background-color: cornflowerblue;
+  color: white;
+  text-decoration: none;
+  line-height: 6em;
+}

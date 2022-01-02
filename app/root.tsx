@@ -11,7 +11,7 @@ import type { MetaFunction } from "remix";
 import styles from "~/styles/app.css";
 
 export const meta: MetaFunction = () => {
-  return { title: "New Remix App" };
+  return { title: "The 無 Dungeon" };
 };
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
