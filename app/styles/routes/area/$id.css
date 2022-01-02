@@ -64,3 +64,11 @@
   width: max-content;
   justify-self: center;
 }
+
+.area-layout-nav {
+  grid-area: input;
+  width: max-content;
+  height: max-content;
+  justify-self: end;
+  align-self: end;
+}
