@@ -106,6 +106,6 @@ function getNextArea(items: ItemMap, nextAreaId: string) {
   return next.toString(16).padStart(4, "0");
 }
 
-function getAreaPath(areaId: string) {
+export function getAreaPath(areaId: string) {
   return `/area/${areaId}`;
 }

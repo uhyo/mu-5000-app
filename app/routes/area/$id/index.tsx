@@ -19,9 +19,12 @@ import { useAreaTransition } from "~/components/area/transition/useAreaTransitio
 import { useAreaEntranceLog } from "~/components/area/gamelog/areaEntranceLog";
 import { useCallback, useEffect, useState } from "react";
 import { useItemTouch } from "~/components/items/useItemTouch";
-import { useItemsStore } from "~/components/items/ItemsStoreContext";
+import { ItemMap, useItemsStore } from "~/components/items/ItemsStoreContext";
 import { getPlayerIcon } from "~/logic/item/getPlayerIcon";
 import { useKeyboardInput } from "~/components/area/player/useKeyboardInput";
+import { getOrElse } from "~/utils/getOrElse";
+import { mapSize } from "~/logic/area/params";
+import { landDef } from "~/logic/area/landDef";
 
 type LoaderType = {
   area: Area;
@@ -74,10 +77,10 @@ function useAreaRouteLogic(areaFromServer: Area) {
   const [clientModifiedMap, setClientModifiedMap] = useState<{
     areaId: string;
     map: AreaMap;
-  }>({
+  }>(() => ({
     areaId: areaFromServer.id,
-    map: areaFromServer.map,
-  });
+    map: clientModifyMap(areaFromServer.map, items),
+  }));
   const map: AreaMap =
     clientModifiedMap.areaId === areaFromServer.id
       ? clientModifiedMap.map
@@ -88,10 +91,10 @@ function useAreaRouteLogic(areaFromServer: Area) {
       // Reset in useEffect to sync client and server map
       setClientModifiedMap({
         areaId: areaFromServer.id,
-        map: areaFromServer.map,
+        map: clientModifyMap(areaFromServer.map, items),
       });
     }
-  }, [clientModifiedMap.areaId, areaFromServer.id]);
+  }, [clientModifiedMap.areaId, areaFromServer.id, items]);
 
   const transition = useTransition();
   const areaIsLoading = transition.state !== "idle";
@@ -127,4 +130,21 @@ function useAreaRouteLogic(areaFromServer: Area) {
   );
 
   return { areaIsLoading, mapArea };
+}
+
+function clientModifyMap(map: AreaMap, items: ItemMap): AreaMap {
+  if (getOrElse(items, "mu", 0) >= 5000 && getOrElse(items, "tada", 0) === 0) {
+    // goal reached
+    const center = Math.floor(mapSize / 2);
+    return modify(map, center, center - 2, landDef.tada);
+  }
+  return map;
+
+  function modify(map: AreaMap, x: number, y: number, land: number) {
+    const newMap = [...map];
+    const newRow = [...newMap[y]];
+    newRow[x] = land;
+    newMap[y] = newRow;
+    return newMap;
+  }
 }

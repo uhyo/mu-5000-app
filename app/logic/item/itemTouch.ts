@@ -6,6 +6,7 @@ export type TouchItemInput = {
   getItem: (itemType: ItemType) => number;
   addItem: (itemType: ItemType, itemNum: number) => void;
   addLog: (content: string) => void;
+  navigate: (areaId: string) => void;
 };
 
 export function touchItem({
@@ -13,6 +14,7 @@ export function touchItem({
   getItem,
   addItem,
   addLog,
+  navigate,
 }: TouchItemInput): void {
   switch (mapItem) {
     case landDef.mu:
@@ -418,6 +420,12 @@ export function touchItem({
         break;
       }
       addLog("🧝🏻‍♀️: Hello!");
+      break;
+    }
+    case landDef.tada: {
+      addItem("tada", 1);
+      addLog(`🎉 Congratulations!`);
+      navigate("ffff");
       break;
     }
   }
