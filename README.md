@@ -51,3 +51,19 @@ rm -rf app
 # copy your app over
 cp -R ../my-old-remix-app/app app
 ```
+
+# Memo
+
+## Deployment
+
+Log in to Cloudflare account with CLI:
+
+```sh
+npx wrangler login
+```
+
+Build and Publish:
+
+```sh
+npx wrangler publish
+```

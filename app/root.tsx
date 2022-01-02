@@ -17,8 +17,7 @@ export const meta: MetaFunction = () => {
     "twitter:creator": "@uhyo_",
     "og:title": "The 無 Dungeon",
     "og:description": "Collect 5,000 🈚️s in a random-generated dungeon!",
-    // TODO: make it a full URL
-    "og:image": "/ogp-image.png",
+    "og:image": "https://mu-5000.uhyo.workers.dev/ogp-image.png",
   };
 };
 
