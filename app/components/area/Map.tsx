@@ -78,7 +78,7 @@ export const Map: React.VFC<Props> = ({ area, map, player, playerIcon }) => {
   );
 };
 
-const floorChars: Record<FloorType, string> = {
+export const floorChars: Record<FloorType, string> = {
   green: "\u{1f7e9}",
   red: "\u{1f7e5}",
   orange: "\u{1f7e7}",

@@ -1,9 +1,25 @@
-import { LinksFunction } from "remix";
+import { Link, LinksFunction } from "remix";
+import { floorChars } from "~/components/area/Map";
+import { Twemoji } from "~/components/utils/Twemoji";
+import { landChars } from "~/logic/area/landDef";
+import { itemNames } from "~/logic/item/itemDef";
 import styles from "~/styles/routes/index.css";
+import { useClientOnly } from "~/utils/useClientOnly";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
 export default function Index() {
+  const emojiPrerendering = useClientOnly(
+    <div hidden style={{ display: "none" }}>
+      <Twemoji wrapper="span">
+        {[
+          ...Object.values(floorChars),
+          ...Object.values(landChars),
+          ...Object.values(itemNames),
+        ].join("")}
+      </Twemoji>
+    </div>
+  );
   return (
     <div className="index-container">
       <h1>The 無 Dungeon</h1>
@@ -31,9 +47,9 @@ export default function Index() {
       <h2>Save Data</h2>
       <p>Data is saved in Indexed Database in your browser.</p>
       <nav>
-        <a className="start-button" href="/area/0000">
+        <Link prefetch="intent" className="start-button" to="/area/0000">
           START
-        </a>
+        </Link>
       </nav>
       <footer>
         <p>
@@ -46,6 +62,8 @@ export default function Index() {
           </small>
         </p>
       </footer>
+      {/* prerendering of Twemojis */}
+      {emojiPrerendering}
     </div>
   );
 }
