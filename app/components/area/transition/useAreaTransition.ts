@@ -15,7 +15,7 @@ type UseAreaTransitionInput = {
 };
 
 type UseAreaTransitionOutput = {
-  prefetchAreaIds: readonly string[];
+  prefetchAreaIds: ReadonlySet<string>;
 };
 
 export function useAreaTransition({
@@ -34,9 +34,11 @@ export function useAreaTransition({
   const navigate = useNavigate();
 
   const prefetchAreaIds = useMemo(() => {
-    return areaPrefetch.map((direction) => {
-      return getNextArea(items, area.connections[direction]);
-    });
+    return new Set(
+      areaPrefetch.map((direction) => {
+        return getNextArea(items, area.connections[direction]);
+      })
+    );
   }, [areaPrefetch, area, items]);
 
   useEffect(() => {

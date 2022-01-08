@@ -143,7 +143,7 @@ function useAreaRouteLogic(areaFromServer: Area) {
           playerIcon={getPlayerIcon(items)}
         />
       </MapLayout>
-      {prefetchAreaIds.map((areaId) => (
+      {[...prefetchAreaIds].map((areaId) => (
         <PrefetchPageLinks key={areaId} page={getAreaPath(areaId)} />
       ))}
     </Twemoji>
