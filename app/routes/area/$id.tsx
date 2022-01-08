@@ -11,7 +11,7 @@ import { Items } from "~/components/items/Items";
 import { ItemsStoreProvider } from "~/components/items/ItemsStoreContext";
 import { Logs } from "~/components/logs/Logs";
 import { LogsProvider, useLogs } from "~/components/logs/LogsContext";
-import { AreaNav } from "~/components/nav/AreaNav";
+import { AreaNav, ShareButton } from "~/components/nav/AreaNav";
 import { mapSize } from "~/logic/area/params";
 import styles from "~/styles/routes/area/$id.css";
 
@@ -89,6 +89,9 @@ const AreaLayoutInner: React.VFC = () => {
       <nav className="area-layout-nav">
         <AreaNav />
       </nav>
+      <div className="area-layout-share">
+        <ShareButton />
+      </div>
     </div>
   );
 };

@@ -72,3 +72,11 @@
   justify-self: end;
   align-self: end;
 }
+
+.area-layout-share {
+  grid-area: input;
+  width: max-content;
+  height: max-content;
+  justify-self: start;
+  align-self: end;
+}
