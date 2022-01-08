@@ -9,6 +9,7 @@ import {
 } from "remix";
 import type { MetaFunction } from "remix";
 import styles from "~/styles/app.css";
+import { appOrigin } from "./logic/env";
 
 export const meta: MetaFunction = () => {
   return {
@@ -17,7 +18,7 @@ export const meta: MetaFunction = () => {
     "twitter:creator": "@uhyo_",
     "og:title": "The 無 Dungeon",
     "og:description": "Collect 5,000 🈚️s in a random-generated dungeon!",
-    "og:image": "https://mu-5000.uhyo.workers.dev/ogp-image.png",
+    "og:image": `${appOrigin}/ogp-image.png`,
   };
 };
 
