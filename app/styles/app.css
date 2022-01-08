@@ -3,3 +3,20 @@ html, body {
   margin: 0;
   padding: 0;
 }
+
+@media (prefers-color-scheme: light) {
+  html {
+    background-color: #ffffff;
+    color: #000000;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  html {
+    background-color: #444444;
+    color: #ffffff;
+  }
+
+  a {
+    color: #ffff00;
+  }
+}
