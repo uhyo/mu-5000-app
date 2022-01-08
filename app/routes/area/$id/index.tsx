@@ -3,6 +3,8 @@ import {
   LinksFunction,
   LoaderFunction,
   PrefetchPageLinks,
+  ThrownResponse,
+  useCatch,
   useLoaderData,
   useParams,
   useTransition,
@@ -30,6 +32,7 @@ import { useKeyboardInput } from "~/components/area/player/useKeyboardInput";
 import { getOrElse } from "~/utils/getOrElse";
 import { mapSize } from "~/logic/area/params";
 import { landDef } from "~/logic/area/landDef";
+import { getErrorArea } from "~/logic/area/errorArea";
 
 type LoaderType = {
   area: Area;
@@ -43,9 +46,14 @@ export const loader: LoaderFunction = ({ params }) => {
   }
   const area = createArea(params.id);
   if (!area) {
-    throw new Response("Not Found", {
-      status: 404,
-    });
+    throw json(
+      {
+        area: getErrorArea(),
+      },
+      {
+        status: 404,
+      }
+    );
   }
   const responseBody: LoaderType = { area };
   return json(responseBody, {
@@ -62,6 +70,26 @@ export default function AreaRoute() {
   return (
     <MainLoopProvider>
       <AreaRouteInner area={area} />
+    </MainLoopProvider>
+  );
+}
+
+export function CatchBoundary() {
+  const caught = useCatch<
+    ThrownResponse<
+      number,
+      {
+        area?: Area;
+      }
+    >
+  >();
+  if (caught.data.area === undefined) {
+    throw caught;
+  }
+  // no strict check...
+  return (
+    <MainLoopProvider>
+      <AreaRouteInner area={caught.data.area} />
     </MainLoopProvider>
   );
 }
