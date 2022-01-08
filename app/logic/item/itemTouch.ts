@@ -251,6 +251,7 @@ export function touchItem({
         break;
       }
       addLog("✂️ You have nothing to cut.");
+      break;
     }
     case landDef.departmentStore: {
       if (getItem("vampire")) {
@@ -261,7 +262,7 @@ export function touchItem({
       }
       const slotMachines = clearItem("slotMachine");
       if (slotMachines > 0) {
-        addItem("moneyBag", slotMachines * 100);
+        addItem("moneyBag", slotMachines * 50);
         addLog(
           `You sold ${slotMachines} 🎰s at 🏢Department Store and got ${
             slotMachines * 50
@@ -353,12 +354,12 @@ export function touchItem({
       }
       const gears = getItem("gear");
       if (gears < 10) {
-        addLog("🧑‍🔧: I need 10 ⚙️s!");
+        addLog("🧑‍🔧: I need 25 ⚙️s!");
         break;
       }
-      addItem("gear", -10);
+      addItem("gear", -25);
       addItem("slotMachine", 1);
-      addLog(`🧑‍🔧 created a 🎰 from 10 ⚙️s for you!`);
+      addLog(`🧑‍🔧 created a 🎰 from 25 ⚙️s for you!`);
       break;
     }
     case landDef.desert: {
