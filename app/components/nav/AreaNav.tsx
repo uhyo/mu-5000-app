@@ -29,7 +29,7 @@ export const ShareButton: React.VFC = memo(() => {
   const cleared = !!items.get("tada");
   const url = useMemo(() => {
     const text = cleared
-      ? "I collected 5000 🈚️s in the 🈚️ dungeon!"
+      ? "I collected 5,000 🈚️s in the 🈚️ dungeon!"
       : "The 🈚️ Dungeon\n";
     return `https://twitter.com/intent/tweet?text=${encodeURIComponent(
       text
