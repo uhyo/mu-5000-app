@@ -1,6 +1,7 @@
 import { memo, useMemo } from "react";
 import { Link } from "remix";
 import { appOrigin } from "~/logic/env";
+import { getOrElse } from "~/utils/getOrElse";
 import { useItemsStore } from "../items/ItemsStoreContext";
 
 export const AreaNav: React.VFC = () => {
@@ -26,17 +27,18 @@ export const AreaNav: React.VFC = () => {
 
 export const ShareButton: React.VFC = memo(() => {
   const { items } = useItemsStore();
-  const cleared = !!items.get("tada");
+  const mu = getOrElse(items, "mu", 0);
   const url = useMemo(() => {
-    const text = cleared
-      ? "I collected 5,000 🈚️s in the 🈚️ dungeon!"
-      : "The 🈚️ Dungeon\n";
+    const text =
+      mu > 0
+        ? `I collected ${mu} 🈚️s in the 🈚️ dungeon!`
+        : "The 🈚️ Dungeon\n";
     return `https://twitter.com/intent/tweet?text=${encodeURIComponent(
       text
     )}&url=${encodeURIComponent(appOrigin)}&hashtags=${encodeURIComponent(
       "無5000"
     )}&via=uhyo_`;
-  }, [cleared]);
+  }, [mu]);
   return (
     <p>
       <a
