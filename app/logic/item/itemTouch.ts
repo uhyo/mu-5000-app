@@ -353,7 +353,7 @@ export function touchItem({
         break;
       }
       const gears = getItem("gear");
-      if (gears < 10) {
+      if (gears < 25) {
         addLog("🧑‍🔧: I need 25 ⚙️s!");
         break;
       }
